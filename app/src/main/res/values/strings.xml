@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Alergenko</string>
+
+    <!--Login activity-->
+    <string name="greeting1">Dobrodošli nazaj... !</string>
+    <string name="greeting2">Prijavite se v svoj račun</string>
+    <string name="txtv_forgot_password">Pozabljeno geslo?</string>
+    <string name="txtv_register">
+        <font color="#1E263C">Nimate še računa?</font>
+        <font color="#EC6745"><b>Registracija</b></font>
+    </string>
+
+    <!--Register activity-->
+    <string name="title_register">Registracija</string>
+    <string name="county_code">+386</string>
+
+    <!--Button hints -->
+    <string name="btn_login">Prijava</string>
+    <string name="btn_register">Registracija</string>
+
+
+    <!--Input hints-->
+    <string name="input_email_hint">Vnesite vaš e-poštni naslov</string>
+    <string name="input_psswd_hint">Vnesite vaše geslo</string>
+    <string name="input_psswd_confirm_hint">Ponovno vnesite vaše geslo</string>
+    <string name="input_name_hint">Vnesite vaše ime</string>
+    <string name="input_surname_hint">Vnesite vaš priimek</string>
+    <string name="input_phone_hint">Vnesite vašo telefonsko številko</string>
+
+    <!--Image descriptions-->
+    <string name="logo_description">logo</string>
+    <string name="btn_back_description">gumb za najaz</string>
+</resources>
