@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_verification">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.045" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTop"
+        app:srcCompat="@drawable/ic_line"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/txtVTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/title_verification"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTitle" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/btn_back_description"
+        android:paddingEnd="10dp"
+        android:scrollbarSize="15dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTitle"
+        app:srcCompat="@drawable/ic_back"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtVInstruction1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/txtv_instruction_1"
+        android:textAlignment="center"
+        android:textColor="@color/text"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+    <TextView
+        android:id="@+id/txtVInstruction2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/txtv_instruction_2"
+        android:textColor="@color/text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtVInstruction1" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtVInstruction2">
+
+        <EditText
+            android:id="@+id/txtInVerificationNumber1"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_verification_input"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="@color/primary2"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" >
+            <!-- Makes fist input focuesd when activity starts-->
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/txtInVerificationNumber2"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_verification_input"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="@color/primary2"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/txtInVerificationNumber3"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_verification_input"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="@color/primary2"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/txtInVerificationNumber4"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_verification_input"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="@color/primary2"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/txtInVerificationNumber5"
+            android:layout_width="55dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="@drawable/style_verification_input"
+            android:ems="10"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:text="4"
+            android:textAlignment="center"
+            android:textColor="@color/primary2"
+            android:textSize="30sp"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtVResend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/txtv_resend"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSend"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_button"
+        android:fontFamily="@font/poppins_medium"
+        android:letterSpacing="0.11"
+        android:text="@string/btn_send"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/glBottom"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/glLeft" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

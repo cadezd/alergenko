@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -16,15 +18,27 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_activity);
     }
 
+    // DECLARATION OF COMPONENTS
+    ImageButton btnBack;
+    EditText txtInFirstName;
+    EditText txtInLastName;
+    EditText txtInEmail;
+    EditText txtInPhoneNumber;
+    EditText txtInPsswd;
+    EditText txtInPsswdConfirm;
+    Button btnRegister;
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        // DECLARATION AND INICIALIZATION OF COMPONENTS
-        ImageButton btnBack = findViewById(R.id.btnBack);
+        // INICIALIZATION OF COMPONENTS
+        btnBack = findViewById(R.id.btnBack);
+        btnRegister = findViewById(R.id.btnRegister);
 
         // CLICK LISTENERS
         btnBack.setOnClickListener(view -> openLoginActivity());
+        btnRegister.setOnClickListener(view -> register());
     }
 
     // ADDITIONAL METHODS
@@ -35,5 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     protected void register(){
         //TODO: add register mechanism
+        Intent intent = new Intent(this, VerificationActivity.class);
+        startActivity(intent);
     }
+
 }

@@ -6,6 +6,7 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/bg_decoration.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/bg_login.xml" value="0.26282051282051283" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/bg_register.xml" value="0.165" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/elipse.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/focused_inputs.xml" value="0.14743589743589744" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/gr_gradient.xml" value="0.26282051282051283" />
@@ -14,11 +15,13 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/ic_logo_wl.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_button.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_input.xml" value="0.26282051282051283" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_verification_input.xml" value="0.16" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/top_bg.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout-v23/activity_main.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/activity_main.xml" value="0.24957264957264957" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/login_main.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/register_activity.xml" value="0.264" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/verification_activity.xml" value="0.264" />
       </map>
     </option>
   </component>

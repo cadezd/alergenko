@@ -60,7 +60,8 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glTop"
-        app:srcCompat="@drawable/ic_line" />
+        app:srcCompat="@drawable/ic_line"
+        tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextTextFirstName"
@@ -160,6 +161,7 @@
         android:layout_marginTop="5dp"
         android:ems="10"
         android:inputType="phone"
+        app:counterMaxLength="8"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
@@ -179,6 +181,7 @@
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_phone_hint"
             android:inputType="phone"
+            android:maxLength="8"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 

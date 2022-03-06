@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Alergenko">
         <activity
+            android:name=".VerificationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/> <!-- Makes the button appear above the keyboard when input is focused -->
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
