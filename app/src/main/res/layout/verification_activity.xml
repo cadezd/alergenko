@@ -81,7 +81,7 @@
         android:id="@+id/txtVInstruction1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/txtv_instruction_1"
         android:textAlignment="center"
@@ -95,7 +95,7 @@
         android:id="@+id/txtVInstruction2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/txtv_instruction_2"
         android:textColor="@color/text"
@@ -108,7 +108,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
@@ -130,7 +130,7 @@
             android:textAlignment="center"
             android:textColor="@color/primary2"
             android:textSize="30sp"
-            tools:ignore="SpeakableTextPresentCheck" >
+            tools:ignore="SpeakableTextPresentCheck">
             <!-- Makes fist input focuesd when activity starts-->
             <requestFocus />
         </EditText>
@@ -213,7 +213,8 @@
         android:id="@+id/txtVResend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="@string/txtv_resend"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"

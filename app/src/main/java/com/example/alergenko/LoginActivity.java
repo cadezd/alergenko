@@ -40,5 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(){
         // TODO: add login mechanism
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
