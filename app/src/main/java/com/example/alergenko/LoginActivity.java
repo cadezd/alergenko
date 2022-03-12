@@ -3,7 +3,6 @@ package com.example.alergenko;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // set's the layout
-        setContentView(R.layout.login_main);
+        setContentView(R.layout.login_acitvity);
     }
 
     @Override
