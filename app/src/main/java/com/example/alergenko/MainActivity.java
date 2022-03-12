@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     private final BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
-                Fragment selectedFragment = new ScanFragment();
+                Fragment selectedFragment;
 
                 switch (item.getItemId()) {
                     case R.id.nav_settings:
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_history:
                         selectedFragment = new HistoryFragment();
                         break;
-                    case R.id.nav_scan:
+                    default:
                         selectedFragment = new ScanFragment();
                         break;
                 }
