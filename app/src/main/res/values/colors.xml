@@ -11,9 +11,10 @@
     <color name="primary1">#0D332E</color>
     <color name="primary2">#20554F</color>
     <color name="secondary">#EC6745</color>
-    <color name="secondaryTransparent">#40EC6745</color> <!-- 40 stands for 40% opacity and other values are for R G B -->
+    <color name="secondaryTransparent">#40EC6745
+    </color> <!-- 40 stands for 40% opacity and other values are for R G B -->
     <color name="text">#1E263C</color>
-    <color name="lightText">#B9BAC8</color>
+    <color name="lightText">#7F8088</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

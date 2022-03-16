@@ -23,6 +23,15 @@
     <string name="txtv_resend"><font color="#1E263C">Niste prejeli kode? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
 
 
+    <!--Settings fragment-->
+    <string name="title_settings">Nastavitve</string>
+    <string name="txtv_account_settings">Nastavitve računa</string>
+    <string name="txtv_view_settings">Nastavitve pogleda</string>
+    <string name="sw_show_ingredinets">Prikaži sestavine</string>
+    <string name="sw_show_nutrition_values">Prikaži hranilne vrednosti</string>
+    <string name="sw_show_allergens">Prikaži alergene</string>
+
+
     <!--Menu / nav bar strings-->
     <string name="nav_settings">Nastavitve</string>
     <string name="nav_scan">Skeniranje</string>
@@ -33,7 +42,8 @@
     <string name="btn_login">Prijava</string>
     <string name="btn_register">Registracija</string>
     <string name="btn_send">Pošlji</string>
-
+    <string name="btn_change_email">Spremenite e-pošto</string>
+    <string name="btn_delete_account">Izbrišite račun</string>
 
     <!--Input hints-->
     <string name="input_email_hint">Vnesite vaš e-poštni naslov</string>

@@ -4,16 +4,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_dark">
+    android:background="@drawable/bg_settings">
 
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings fragement"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.045" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <TextView
+        android:id="@+id/txtVTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/title_settings"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTitle" />
+
+    <TextView
+        android:id="@+id/txtVAccountSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/txtv_account_settings"
+        android:textColor="@color/lightText"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="0.039"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTop" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnChangeEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_settings_holder"
+        android:drawableStart="@drawable/ic_email_green"
+        android:drawableEnd="@drawable/ic_edit"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/btn_change_email"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtVAccountSettings" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/style_settings_holder"
+        android:drawableStart="@drawable/ic_person_green"
+        android:drawableEnd="@drawable/ic_trash"
+        android:drawablePadding="10dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/btn_delete_account"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeEmail" />
+
+    <TextView
+        android:id="@+id/txtVViewSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/txtv_view_settings"
+        android:textColor="@color/lightText"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/btnDeleteAccount" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swShowIngredients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_settings_holder"
+        android:checked="true"
+        android:fontFamily="@font/poppins_medium"
+        android:minHeight="48dp"
+        android:text="@string/sw_show_ingredinets"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtVViewSettings" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swShowAllergens"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/style_settings_holder"
+        android:checked="true"
+        android:fontFamily="@font/poppins_medium"
+        android:minHeight="48dp"
+        android:text="@string/sw_show_allergens"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/swShowIngredients" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swShowNutritionValues"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/style_settings_holder"
+        android:checked="true"
+        android:fontFamily="@font/poppins_medium"
+        android:minHeight="48dp"
+        android:text="@string/sw_show_nutrition_values"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/swShowAllergens" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
