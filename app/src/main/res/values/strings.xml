@@ -30,7 +30,11 @@
     <string name="sw_show_ingredinets">Prikaži sestavine</string>
     <string name="sw_show_nutrition_values">Prikaži hranilne vrednosti</string>
     <string name="sw_show_allergens">Prikaži alergene</string>
+    <string name="btn_log_out">Odjava</string>
 
+    <!--Scan fragment-->
+    <string name="title_scan">Skeniranje</string>
+    <string name="status_text">Postavite črtno kodo v okvir, da jo skenirate.</string>
 
     <!--Menu / nav bar strings-->
     <string name="nav_settings">Nastavitve</string>

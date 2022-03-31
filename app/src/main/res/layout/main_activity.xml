@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary1"
+        android:paddingTop="5dp"
         app:itemIconTint="@drawable/style_bottom_navigation"
         app:itemTextAppearanceActive="@style/bottomaNavigationText"
         app:itemTextAppearanceInactive="@style/bottomaNavigationText"
