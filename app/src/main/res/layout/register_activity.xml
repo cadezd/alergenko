@@ -64,7 +64,7 @@
         tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextFirstName"
+        android:id="@+id/editTextTextSearch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInFirstName"
+            android:id="@+id/txtInSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
@@ -109,7 +109,7 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextFirstName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextSearch"
         app:startIconDrawable="@drawable/ic_person_grey">
 
         <com.google.android.material.textfield.TextInputEditText

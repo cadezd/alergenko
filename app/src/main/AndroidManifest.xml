@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alergenko">
+    <!-- Permissions -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -11,8 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Alergenko">
         <activity
-            android:name=".MainActivity"
+            android:name=".ProductInfoActivity"
             android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" /> <!-- Stops bottom navigation menu appearing above keyboard when input is focused -->
         <activity
             android:name=".VerificationActivity"
             android:exported="false"
@@ -35,8 +42,4 @@
             android:resource="@array/preloaded_fonts" />
     </application>
 
-
-    <!--Permissions-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
 </manifest>

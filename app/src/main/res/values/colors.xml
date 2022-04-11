@@ -17,4 +17,6 @@
     <color name="lightText">#7F8088</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="header">#BBBBBB</color>
+    <color name="holder">#EDEDED</color>
 </resources>

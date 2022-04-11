@@ -23,6 +23,9 @@
     <string name="txtv_resend"><font color="#1E263C">Niste prejeli kode? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
 
 
+    <!--Product info activity-->
+    <string name="title_product_info">Informacije o izdelku</string>
+
     <!--Settings fragment-->
     <string name="title_settings">Nastavitve</string>
     <string name="txtv_account_settings">Nastavitve računa</string>
@@ -44,6 +47,12 @@
     <string name="nav_scan">Skeniranje</string>
     <string name="nav_history">Zgodovina</string>
 
+    <!--Product card-->
+    <string name="txtv_allergens_title">Alergeni:</string>
+    <string name="txtv_ingredients_title">Sestavine:</string>
+    <string name="txtv_nutrition_values_title">Hranilne vrednosti:</string>
+    <string name="txtv_nutrition_values_per_100">Hranilne vrednosti na 100g</string>
+
 
     <!--Button hints -->
     <string name="btn_login">Prijava</string>
@@ -51,6 +60,7 @@
     <string name="btn_send">Pošlji</string>
     <string name="btn_change_email">Spremenite e-pošto</string>
     <string name="btn_delete_account">Izbrišite račun</string>
+    <string name="btn_close">Zapri okno</string>
 
     <!--Input hints-->
     <string name="input_email_hint">Vnesite vaš e-poštni naslov</string>
@@ -65,5 +75,6 @@
     <!--Image descriptions-->
     <string name="logo_description">logo</string>
     <string name="btn_back_description">gumb za najaz</string>
+    <string name="product_img">slika izdelka</string>
 
 </resources>

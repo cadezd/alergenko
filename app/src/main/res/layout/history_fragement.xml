@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.265" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glBottom"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextFirstName"
+        android:id="@+id/editTextTextSearch"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         app:startIconDrawable="@drawable/ic_search">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInFirstName"
+            android:id="@+id/txtInSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
@@ -84,5 +84,19 @@
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ListView
+        android:id="@+id/lvHistory"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:divider="@null"
+        app:layout_constraintBottom_toTopOf="@+id/glBottom"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toTopOf="@+id/glTop"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/product_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

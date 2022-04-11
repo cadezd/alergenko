@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         // DECLARATION AND INICIALIZATION OF COMPONENTS
-        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnLogin = findViewById(R.id.btnClose);
         TextView txtVRegister = findViewById(R.id.txtVRegister);
 
         // CLICK LISTENERS
