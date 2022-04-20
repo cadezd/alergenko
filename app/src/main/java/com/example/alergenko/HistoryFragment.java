@@ -1,13 +1,10 @@
 package com.example.alergenko;
 
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -24,9 +21,9 @@ public class HistoryFragment extends Fragment {
         // TODO: naredi tako da boš podatke o izdelik dobil iz PB
         // TODO: dodaj še podatke o hranilnih vrednostih
         ArrayList<Product> products = new ArrayList<>();
+        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_bananas));
         products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
+        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_bananas));
         products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
 
         View contentView = inflater.inflate(R.layout.history_fragement, container, false);
@@ -36,12 +33,7 @@ public class HistoryFragment extends Fragment {
 
         // opens ProductInfoActivity when user clicks on one element in the list view
         listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                openProductInfoActivity(products, position);
-            }
-        });
+        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(products, position));
 
         return contentView;
     }

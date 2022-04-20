@@ -19,11 +19,11 @@
         <ImageView
             android:id="@+id/imgVProductImg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:contentDescription="@string/product_img"
             android:paddingRight="10dp"
-            app:srcCompat="@drawable/pic_brownies" />
+            app:srcCompat="@drawable/pic_bananas" />
 
         <LinearLayout
             android:layout_width="265dp"
