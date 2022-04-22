@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_register">
+    android:background="@drawable/bg_edit_info"
+    tools:context=".EditInfoActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glTitle"
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.155" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glBottom"
@@ -46,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
-        android:text="@string/title_register"
+        android:text="@string/title_edit_info"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
@@ -68,7 +69,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="text"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -79,16 +80,16 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/imgVLine"
-        app:startIconDrawable="@drawable/ic_person_grey"
-        >
+        app:startIconDrawable="@drawable/ic_person_grey">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_name_hint"
+            android:hint="@string/input_name_hint_short"
             android:inputType="text"
+            android:text="David"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -99,7 +100,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="text"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -117,8 +118,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_surname_hint"
+            android:hint="@string/input_surname_hint_short"
             android:inputType="text"
+            android:text="Čadež"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +130,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         app:boxCornerRadiusBottomEnd="10dp"
@@ -146,9 +148,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:textSize="15sp"
-            android:hint="@string/input_email_hint"
+            android:hint="@string/input_email_hint_short"
             android:inputType="textEmailAddress"
+            android:text="david.cadez89@gmail.com"
+            android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -158,14 +161,14 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="phone"
-        app:counterMaxLength="8"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:counterMaxLength="8"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
@@ -179,74 +182,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_phone_hint"
+            android:hint="@string/input_phone_hint_short"
             android:inputType="phone"
             android:maxLength="8"
+            android:text="31290128"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber"
-        app:startIconDrawable="@drawable/ic_lock_grey">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPsswd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_psswd_hint"
-            android:inputType="textPassword"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPasswordConfirm"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:startIconDrawable="@drawable/ic_lock_grey">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPsswdConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_psswd_confirm_hint"
-            android:inputType="textPassword"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnUpdate"
@@ -255,7 +199,7 @@
         android:background="@drawable/style_button"
         android:fontFamily="@font/poppins_medium"
         android:letterSpacing="0.11"
-        android:text="@string/btn_register"
+        android:text="@string/btn_update"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -279,6 +223,4 @@
         app:layout_constraintTop_toTopOf="@+id/glTitle"
         app:srcCompat="@drawable/ic_back"
         tools:ignore="TouchTargetSizeCheck" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Alergenko">
         <activity
+            android:name=".EditInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProductInfoActivity"
             android:exported="false" />
         <activity

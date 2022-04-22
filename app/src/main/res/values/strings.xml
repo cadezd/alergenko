@@ -26,6 +26,11 @@
     <!--Product info activity-->
     <string name="title_product_info">Informacije o izdelku</string>
 
+
+    <!--Edit info activity-->
+    <string name="title_edit_info">Podatki o računu</string>
+
+
     <!--Settings fragment-->
     <string name="title_settings">Nastavitve</string>
     <string name="txtv_account_settings">Nastavitve računa</string>
@@ -35,17 +40,21 @@
     <string name="sw_show_allergens">Prikaži alergene</string>
     <string name="btn_log_out">Odjava</string>
 
+
     <!--Scan fragment-->
     <string name="title_scan">Skeniranje</string>
     <string name="status_text">Postavite črtno kodo v okvir, da jo skenirate.</string>
 
+
     <!--Hisotry fragment-->
     <string name="title_history">Zgodovina</string>
+
 
     <!--Menu / nav bar strings-->
     <string name="nav_settings">Nastavitve</string>
     <string name="nav_scan">Skeniranje</string>
     <string name="nav_history">Zgodovina</string>
+
 
     <!--Product card-->
     <string name="txtv_allergens_title">Alergeni:</string>
@@ -54,23 +63,28 @@
     <string name="txtv_nutrition_values_per_100">Hranilne vrednosti na 100g</string>
 
 
+
     <!--Button hints -->
     <string name="btn_login">Prijava</string>
     <string name="btn_register">Registracija</string>
     <string name="btn_send">Pošlji</string>
-    <string name="btn_change_email">Spremenite e-pošto</string>
+    <string name="btn_update_info">Spremenite podatke računa</string>
     <string name="btn_delete_account">Izbrišite račun</string>
     <string name="btn_close">Zapri okno</string>
+    <string name="btn_update">Posodobi</string>
 
     <!--Input hints-->
     <string name="input_email_hint">Vnesite vaš e-poštni naslov</string>
+    <string name="input_email_hint_short">E-poštni naslov</string>
     <string name="input_psswd_hint">Vnesite vaše geslo</string>
     <string name="input_psswd_confirm_hint">Ponovno vnesite vaše geslo</string>
     <string name="input_name_hint">Vnesite vaše ime</string>
+    <string name="input_name_hint_short">Ime</string>
     <string name="input_surname_hint">Vnesite vaš priimek</string>
+    <string name="input_surname_hint_short">Priimek</string>
     <string name="input_phone_hint">Vnesite vašo telefonsko številko</string>
+    <string name="input_phone_hint_short">Telefonska številka</string>
     <string name="input_search_hint">Vnesite ime izdelka</string>
-
 
     <!--Image descriptions-->
     <string name="logo_description">logo</string>
