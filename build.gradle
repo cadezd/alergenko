@@ -15,13 +15,3 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
-    defaultConfig {
-        minSdkVersion 30
-        targetSdkVersion 30
-    }
-}
