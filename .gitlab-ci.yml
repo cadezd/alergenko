@@ -6,8 +6,7 @@ variables:
 
 build:
   image: openjdk:11-jdk
-  stage:
-    - build
+  stage: build
   variables:
     ANDROID_HOME: /tmp/android
     PATH: $PATH:${ANDROID_HOME}/cmdline-tools/bin/
