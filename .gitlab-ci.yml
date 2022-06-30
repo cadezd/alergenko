@@ -2,15 +2,14 @@ variables:
   ANDROID_COMPILE_SDK: "30"
   ANDROID_BUILD_TOOLS: "30.0.3"
   ANDROID_SDK_TOOLS: "7583922"
+  ANDROID_HOME: /tmp/android
 
 
 build:
   image: openjdk:11-jdk
   stage: build
-  variables:
-    ANDROID_HOME: /tmp/android
-    PATH: $PATH:${ANDROID_HOME}/cmdline-tools/bin/
   before_script:
+    - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/bin/
     - apt-get --quiet update -qq --yes
     - apt-get --quiet install -qq --yes wget tar unzip lib32stdc++6 lib32z1
 
