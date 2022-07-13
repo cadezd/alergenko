@@ -1,12 +1,7 @@
 package com.example.alergenko.networking;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import com.example.alergenko.LoginActivity;
-import com.example.alergenko.RegisterActivity;
-import com.example.alergenko.notifications.ProblemNotification;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,9 +15,8 @@ import java.nio.charset.StandardCharsets;
 
 public class GetJWT extends AsyncTask<String, Void, JSONObject> {
 
-    private String username;
-    private String password;
-    private Exception exception;
+    private final String username;
+    private final String password;
 
     public GetJWT(String username, String password) {
         this.username = username;
@@ -55,7 +49,7 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
             // reading the response
             try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), StandardCharsets.UTF_8))) {
                 StringBuilder response = new StringBuilder();
-                String responseLine = null;
+                String responseLine;
                 while ((responseLine = br.readLine()) != null)
                     response.append(responseLine.trim());
                 jwt = new JSONObject(response.toString());

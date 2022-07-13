@@ -43,6 +43,8 @@ public class HistoryFragment extends Fragment {
 
     private void openProductInfoActivity(ArrayList<Product> products, int position){
         Intent intent = new Intent(getActivity(), ProductInfoActivity.class);
+        // gives ProductInfoActivity data obout which fragment to open after it closes
+        intent.putExtra("fromFragment", R.id.nav_history);
         // gives ProductInfoActivity data about product to display
         intent.putExtra("productName", products.get(position).getProductName());
         intent.putExtra("allergens", products.get(position).getAllergens());

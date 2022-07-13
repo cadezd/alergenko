@@ -1,11 +1,9 @@
 package com.example.alergenko;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,10 +15,7 @@ import com.example.alergenko.networking.GetJWT;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.notifications.ProblemNotification;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -44,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         // INICIALIZATION OF COMPONENTS
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnClose);
         txtVRegister = findViewById(R.id.txtVRegister);
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPsswd = findViewById(R.id.txtInPsswd);
@@ -85,17 +80,13 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
 
-        } catch (ExecutionException | InterruptedException e) {
-            handleException("Napaka", e.toString(), this);
-        } catch (JSONException e) {
-            handleException("Napaka", e.toString(), this);
         } catch (Exception e) {
-            handleException("Napaka", e.getMessage(), this);
+            handleException(e.getMessage(), this);
         }
     }
 
-    private void handleException(String title, String message, Context context) {
-        ProblemNotification problemNotification = new ProblemNotification(title, message, context);
+    private void handleException(String message, Context context) {
+        ProblemNotification problemNotification = new ProblemNotification("Napaka", message, context);
         problemNotification.show();
         txtInEmail.setText("");
         txtInPsswd.setText("");

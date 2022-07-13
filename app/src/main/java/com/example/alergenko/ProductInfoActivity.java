@@ -19,16 +19,19 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onStart();
 
         // DECLARATION AND INICIALIZATION OF COMPONENTS
-        Button btnClose = findViewById(R.id.btnLogin);
+        Button btnClose = findViewById(R.id.btnClose);
 
         // CLICK LISTENERS
         // opens register activty
-        btnClose.setOnClickListener(view -> openMainActivity());
+        Intent intent = getIntent();
+        int fragmentToOpen = intent.getIntExtra("fromFragment", R.id.nav_scan);
+        btnClose.setOnClickListener(view -> openMainActivity(fragmentToOpen));
     }
 
     // ADDITIONAL METHODS
-    private void openMainActivity(){
+    private void openMainActivity(int fragmentToOpen){
         Intent intent = new Intent(ProductInfoActivity.this, MainActivity.class);
+        intent.putExtra("fragmentToOpen", fragmentToOpen);
         startActivity(intent);
     }
 }

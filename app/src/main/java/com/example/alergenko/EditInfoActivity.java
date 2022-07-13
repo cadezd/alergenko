@@ -32,6 +32,7 @@ public class EditInfoActivity extends AppCompatActivity {
 
     private void openMainActivty() {
         Intent intent = new Intent(EditInfoActivity.this, MainActivity.class);
+        intent.putExtra("fragmentToOpen", R.id.nav_settings);
         startActivity(intent);
     }
 }
