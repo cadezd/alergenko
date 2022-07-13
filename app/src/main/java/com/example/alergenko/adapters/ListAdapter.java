@@ -1,4 +1,4 @@
-package com.example.alergenko;
+package com.example.alergenko.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.alergenko.R;
+import com.example.alergenko.entities.Product;
 
 import java.util.ArrayList;
 

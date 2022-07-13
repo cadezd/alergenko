@@ -1,4 +1,4 @@
-package com.example.alergenko;
+package com.example.alergenko.entities;
 
 public class Product {
 

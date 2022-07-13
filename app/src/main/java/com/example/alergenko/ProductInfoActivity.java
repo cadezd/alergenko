@@ -19,7 +19,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onStart();
 
         // DECLARATION AND INICIALIZATION OF COMPONENTS
-        Button btnClose = findViewById(R.id.btnClose);
+        Button btnClose = findViewById(R.id.btnLogin);
 
         // CLICK LISTENERS
         // opens register activty

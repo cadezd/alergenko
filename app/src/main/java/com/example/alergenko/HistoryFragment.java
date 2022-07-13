@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.alergenko.adapters.ListAdapter;
+import com.example.alergenko.entities.Product;
+
 import java.util.ArrayList;
 
 public class HistoryFragment extends Fragment {
