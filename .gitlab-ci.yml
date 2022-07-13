@@ -1,0 +1,36 @@
+variables:
+  ANDROID_COMPILE_SDK: "30"
+  ANDROID_BUILD_TOOLS: "30.0.3"
+  ANDROID_SDK_TOOLS: "7583922"
+  ANDROID_HOME: /tmp/android
+
+
+build:
+  image: openjdk:11-jdk
+  stage: build
+  before_script:
+    - export PATH=$PATH:${ANDROID_HOME}/cmdline-tools/bin/
+    - apt-get --quiet update -qq --yes
+    - apt-get --quiet install -qq --yes wget tar unzip lib32stdc++6 lib32z1
+
+    - mkdir -p $ANDROID_HOME
+    - cd $ANDROID_HOME
+    - wget --output-document=cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip
+    - unzip cmdline-tools.zip
+
+    - cd $CI_PROJECT_DIR
+    - sdkmanager --sdk_root=${ANDROID_HOME} --version
+
+    - yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses > /dev/null && echo All SDK licences accepted.
+    - sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}"
+    - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
+    - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
+
+    - chmod +x ./gradlew
+  script:
+    # - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
+    - ./gradlew assembleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/
+
