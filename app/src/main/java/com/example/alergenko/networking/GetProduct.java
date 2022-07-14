@@ -3,57 +3,51 @@ package com.example.alergenko.networking;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.EditText;
+import android.util.Log;
 
 import com.example.alergenko.R;
+import com.example.alergenko.RegisterActivity;
+import com.example.alergenko.ScanFragment;
+import com.example.alergenko.entities.User;
 import com.example.alergenko.notifications.ProblemNotification;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class GetJWT extends AsyncTask<String, Void, JSONObject> {
+@SuppressLint("StaticFieldLeak")
+public class GetProduct extends AsyncTask<String, Void, JSONObject> {
 
     private Exception e;
-    @SuppressLint("StaticFieldLeak")
+    private final String barcode;
     private final Context context;
-    private final String username;
-    private final String password;
 
-    public GetJWT(String username, String password, Context context) {
-        this.username = username;
-        this.password = password;
+    public GetProduct(String barcode, Context context) {
+        this.barcode = barcode;
         this.context = context;
     }
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        JSONObject jwt;
+        JSONObject product = null;
         try {
             // Setting the connection parameters
-            URL url = new URL(urls[0]);
+            URL url = new URL(NetworkConfig.URL_GET_PRODUCT + this.barcode);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setDoOutput(true);
+            con.setRequestMethod("GET");
             con.setDoInput(true);
             con.setRequestProperty("Content-Type", "application/json");
-
-            // creating request body
-            String jsonInputString = "{\"username\": \"" + this.username + "\", \"password\": \"" + this.password + "\"}";
-            try (OutputStream os = con.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
+            con.setRequestProperty("Authorization", "Bearer " + User.getJwt());
 
             // checking response code
             if (con.getResponseCode() != 200) {
-                throw new NetworkException(con.getResponseCode());
+                throw new Exception("ERROR: " + con.getResponseCode());
             }
 
             // reading the response
@@ -62,12 +56,13 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
                 String responseLine;
                 while ((responseLine = br.readLine()) != null)
                     response.append(responseLine.trim());
-                jwt = new JSONObject(response.toString());
+                product = new JSONObject(response.toString());
             }
 
-            return jwt;
+            return product;
         } catch (Exception e) {
             this.e = e;
+            Log.i("bala1", e.toString());
             return null;
         }
     }
@@ -75,21 +70,11 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject response) {
         // handling exceptions
-        if (this.e != null) {
+        if (this.e != null || response == null) {
             ProblemNotification problemNotification = new ProblemNotification("Napaka", this.e.getMessage(), context);
             problemNotification.show();
-            clearTextInputs(context);
+            // TODO: dodaj da se odpre nov avitvity z gifom in napisom da produkta ni mogoče dobiti
+
         }
-    }
-
-    protected void clearTextInputs(Context context) {
-        Activity activity = (Activity) context;
-        EditText txtInEmail = activity.findViewById(R.id.txtInEmail);
-        EditText txtInPsswd = activity.findViewById(R.id.txtInPsswd);
-
-        txtInEmail.setText("");
-        txtInEmail.clearFocus();
-        txtInPsswd.setText("");
-        txtInPsswd.clearFocus();
     }
 }

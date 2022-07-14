@@ -1,6 +1,5 @@
 package com.example.alergenko;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPsswd = findViewById(R.id.txtInPsswd);
 
-        txtInEmail.setText("");
+        txtInEmail.setText("foo");
         txtInEmail.clearFocus();
-        txtInPsswd.setText("");
+        txtInPsswd.setText("foo");
         txtInPsswd.clearFocus();
 
 
@@ -68,27 +67,21 @@ public class LoginActivity extends AppCompatActivity {
             // make a POST request to get JWT
             User.setUsername(txtInEmail.getText().toString());
             User.setPassword(txtInPsswd.getText().toString());
-            GetJWT getJWT = new GetJWT(User.getUsername(), User.getPassword());
+            GetJWT getJWT = new GetJWT(User.getUsername(), User.getPassword(), this);
             AsyncTask<String, Void, JSONObject> response = getJWT.execute(NetworkConfig.URL_AUTH);
 
-            // checks if response does not contain JWT and throws an Exception
-            if (!response.get().has("jwt"))
-                throw new Exception("Napačno uporabniško ime ali geslo");
-
             // saves JWT and opens MainActivity
-            User.setJwt(response.get().get("jwt").toString());
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-
+            if (response.get() != null) {
+                User.setJwt(response.get().get("jwt").toString());
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
         } catch (Exception e) {
-            handleException(e.getMessage(), this);
+            // handling exceptions
+            ProblemNotification problemNotification = new ProblemNotification("Napaka", e.getMessage(), this);
+            problemNotification.show();
+            txtInEmail.setText("");
+            txtInPsswd.setText("");
         }
-    }
-
-    private void handleException(String message, Context context) {
-        ProblemNotification problemNotification = new ProblemNotification("Napaka", message, context);
-        problemNotification.show();
-        txtInEmail.setText("");
-        txtInPsswd.setText("");
     }
 }

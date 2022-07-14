@@ -67,12 +67,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/txtVProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Ime izdelka"
+                android:textColor="@color/primary1"
+                android:textSize="20sp" />
+
             <ImageView
                 android:id="@+id/imgVProductImg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="175dp"
                 android:contentDescription="@string/product_img"
-                app:srcCompat="@drawable/pic_bananas" />
+                app:srcCompat="@drawable/ic_image_not_supported" />
 
             <TextView
                 android:id="@+id/txtVTitleAllergens"
@@ -89,7 +98,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Alergen1, Alergen2, Alergen3, Alergen4..."
                 android:textSize="14sp" />
 
             <TextView
@@ -106,8 +114,7 @@
                 android:id="@+id/txtVIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Sestavina1, Sestavina2, Sestavina3, Sestavina4, Sestavina5, Sestavina6, Sestavina7, Sestavina8..." />
+                android:fontFamily="@font/poppins_medium" />
 
             <TextView
                 android:id="@+id/txtVTitleNutritionValues"
@@ -120,50 +127,21 @@
                 android:textSize="18sp" />
 
             <TableLayout
+                android:id="@+id/tblLyNutritionValues"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/style_holder"
                 android:divider="@color/lightText"
-                android:showDividers="middle"
+                android:showDividers="none"
                 android:stretchColumns="*">
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtVNutritionValuesPer100"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp"
-                        android:text="@string/txtv_nutrition_values_per_100" />
-
-                </TableRow>
+                    android:layout_height="match_parent" />
 
                 <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:paddingStart="10dp"
-                        android:paddingTop="3dp"
-                        android:paddingBottom="3dp"
-                        android:text="TextView" />
-
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="TextView" />
-                </TableRow>
+                    android:layout_height="match_parent" />
 
             </TableLayout>
 

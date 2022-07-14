@@ -37,8 +37,8 @@ public class ListAdapter extends ArrayAdapter<Product> {
         TextView txtVIngredients = convertView.findViewById(R.id.txtVIngredients);
 
         // setting values od components
-        imgVProductImg.setImageResource(product.getImage());
-        txtVProductName.setText(product.getProductName());
+        //imgVProductImg.setImageResource(product.getMainImageSrc());
+        txtVProductName.setText(product.getName());
         txtVAllergens.setText(product.getAllergens());
         txtVIngredients.setText(product.getIngredients());
 

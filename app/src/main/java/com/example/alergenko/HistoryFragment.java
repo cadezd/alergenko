@@ -24,10 +24,6 @@ public class HistoryFragment extends Fragment {
         // TODO: naredi tako da boš podatke o izdelik dobil iz PB
         // TODO: dodaj še podatke o hranilnih vrednostih
         ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_bananas));
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_bananas));
-        products.add(new Product("Neki", "Neki", "Neki", R.drawable.pic_brownies));
 
         View contentView = inflater.inflate(R.layout.history_fragement, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
@@ -46,7 +42,7 @@ public class HistoryFragment extends Fragment {
         // gives ProductInfoActivity data obout which fragment to open after it closes
         intent.putExtra("fromFragment", R.id.nav_history);
         // gives ProductInfoActivity data about product to display
-        intent.putExtra("productName", products.get(position).getProductName());
+        intent.putExtra("productName", products.get(position).getName());
         intent.putExtra("allergens", products.get(position).getAllergens());
         intent.putExtra("ingredients", products.get(position).getIngredients());
         // start's ProductInfoActivity
