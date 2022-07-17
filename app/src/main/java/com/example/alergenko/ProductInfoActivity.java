@@ -160,7 +160,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         // loads image of a product from web
         try {
             GetImage getImage = new GetImage(this);
-            AsyncTask<String, Void, Drawable> response = getImage.execute("https://www.tutorialkart.com/");
+            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
             return response.get();
         } catch (Exception e) {
             // loads default (product image not supported)

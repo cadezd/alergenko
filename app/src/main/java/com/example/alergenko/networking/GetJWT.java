@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -66,6 +67,9 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
             }
 
             return jwt;
+        } catch (ConnectException e) {
+            this.e = new ConnectException(getStringResourceByName("no_internet_connection"));
+            return null;
         } catch (Exception e) {
             this.e = e;
             return null;
@@ -76,7 +80,7 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject response) {
         // handling exceptions
         if (this.e != null) {
-            ProblemNotification problemNotification = new ProblemNotification("Napaka", this.e.getMessage(), context);
+            ProblemNotification problemNotification = new ProblemNotification(getStringResourceByName("exception"), this.e.getMessage(), context);
             problemNotification.show();
             clearTextInputs(context);
         }
@@ -91,5 +95,11 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
         txtInEmail.clearFocus();
         txtInPsswd.setText("");
         txtInPsswd.clearFocus();
+    }
+
+    private String getStringResourceByName(String aString) {
+        String packageName = ((Activity) context).getPackageName();
+        int resId = ((Activity) context).getResources().getIdentifier(aString, "string", packageName);
+        return ((Activity) context).getString(resId);
     }
 }

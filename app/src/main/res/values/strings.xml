@@ -91,4 +91,8 @@
     <string name="btn_back_description">gumb za najaz</string>
     <string name="product_img">slika izdelka</string>
 
+    <!--Notification strings-->
+    <string name="exception">Napaka</string>
+    <string name="no_internet_connection">Nimate vzpostavljene internetne povezave</string>
+
 </resources>

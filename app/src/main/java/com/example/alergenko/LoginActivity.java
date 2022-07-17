@@ -1,5 +1,6 @@
 package com.example.alergenko;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -78,10 +79,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             // handling exceptions
-            ProblemNotification problemNotification = new ProblemNotification("Napaka", e.getMessage(), this);
+            ProblemNotification problemNotification = new ProblemNotification(getStringResourceByName("exception"), e.getMessage(), this);
             problemNotification.show();
             txtInEmail.setText("");
             txtInPsswd.setText("");
         }
+    }
+
+    private String getStringResourceByName(String aString) {
+        String packageName = getPackageName();
+        int resId = getResources().getIdentifier(aString, "string", packageName);
+        return getString(resId);
     }
 }

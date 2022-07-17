@@ -43,6 +43,7 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_switch_track.xml" value="0.2515" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_table.xml" value="0.266" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/style_verification_input.xml" value="0.16" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/toast_text.xml" value="0.153" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/drawable/top_bg.xml" value="0.26282051282051283" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout-v23/activity_main.xml" value="0.30416666666666664" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/activity_main.xml" value="0.24957264957264957" />
@@ -56,6 +57,7 @@
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/register_activity.xml" value="0.264" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/scan_fragement.xml" value="0.26856884057971014" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/settings_fragement.xml" value="0.4" />
+        <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/toast_text.xml" value="0.14427083333333332" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/layout/verification_activity.xml" value="0.264" />
         <entry key="..\:/Users/david/AndroidStudioProjects/Alergenko/app/src/main/res/menu/bottom_navigation.xml" value="0.30416666666666664" />
       </map>
