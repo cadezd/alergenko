@@ -18,7 +18,7 @@
 
     <!--Verification activity-->
     <string name="title_verification">Verifikacija</string>
-    <string name="txtv_instruction_1">Prek sms-a smo vam poslali 5-mestno kodo za preverjanje vaše mobilne številke.</string>
+    <string name="txtv_instruction_1">Prek sms-a smo vam poslali 6-mestno kodo za preverjanje vaše mobilne številke.</string>
     <string name="txtv_instruction_2">Tukaj vnesite vašo kodo.</string>
     <string name="txtv_resend"><font color="#1E263C">Niste prejeli kode? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
 
@@ -91,8 +91,18 @@
     <string name="btn_back_description">gumb za najaz</string>
     <string name="product_img">slika izdelka</string>
 
-    <!--Notification strings-->
+    <!--Exception strings-->
     <string name="exception">Napaka</string>
-    <string name="no_internet_connection">Nimate vzpostavljene internetne povezave</string>
+    <string name="no_internet_connection">Nimate vzpostavljene internetne povezave.</string>
+    <string name="exception_verification">Tekom verifikacije je prišlo do napake:</string>
+    <string name="exception_bad_verification_code">Napačna verifikacijska koda.</string>
+    <string name="exception_firebase">Prišlo je do omrežne napake (kot je časovna omejitev ali prekinjena povezava).</string>
+
+    <!--Notification strings-->
+    <string name="notification">Obvestilo</string>
+    <string name="notification_registration_success">Uspešna registracija.</string>
+
+
+
 
 </resources>

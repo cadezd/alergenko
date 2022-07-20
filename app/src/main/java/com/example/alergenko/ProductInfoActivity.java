@@ -120,6 +120,19 @@ public class ProductInfoActivity extends AppCompatActivity {
         }
     }
 
+    public Drawable getProductImg(String url) {
+        // loads image of a product from web
+        try {
+            GetImage getImage = new GetImage(this);
+            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
+            return response.get();
+        } catch (Exception e) {
+            // loads default (product image not supported)
+            Log.i("bala1", e.toString());
+            return ContextCompat.getDrawable(this, R.drawable.ic_image_not_supported);
+        }
+    }
+
 
     @SuppressLint("SetTextI18n")
     public TableRow createTableRow(String nutrient, String quantity, String unit, int index) {
@@ -132,20 +145,22 @@ public class ProductInfoActivity extends AppCompatActivity {
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
         tableRow.setLayoutParams(lp);
 
-        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 1.0f);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
 
-        TextView txtVNutrient = new TextView(this);
+        TextView txtVNutrient = new TextView(this); // nutrient column
         txtVNutrient.setLayoutParams(lp1);
         txtVNutrient.setPadding(25, 3, 0, 3);
         txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_medium));
-        txtVNutrient.setText(nutrient);
+        if (nutrient.contains("—")) // indent
+            nutrient = "   " + nutrient;
         if (index == 0) {
             txtVNutrient.setTextSize(16);
             txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
         }
+        txtVNutrient.setText(nutrient);
         tableRow.addView(txtVNutrient);
 
-        TextView txtVQuantityUnit = new TextView(this);
+        TextView txtVQuantityUnit = new TextView(this); // quantity and unit column
         txtVQuantityUnit.setLayoutParams(lp1);
         txtVQuantityUnit.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         txtVQuantityUnit.setPadding(0, 3, 25, 3);
@@ -154,18 +169,5 @@ public class ProductInfoActivity extends AppCompatActivity {
         tableRow.addView(txtVQuantityUnit);
 
         return tableRow;
-    }
-
-    public Drawable getProductImg(String url) {
-        // loads image of a product from web
-        try {
-            GetImage getImage = new GetImage(this);
-            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
-            return response.get();
-        } catch (Exception e) {
-            // loads default (product image not supported)
-            Log.i("bala1", e.toString());
-            return ContextCompat.getDrawable(this, R.drawable.ic_image_not_supported);
-        }
     }
 }

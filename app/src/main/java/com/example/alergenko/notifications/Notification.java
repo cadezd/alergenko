@@ -2,14 +2,13 @@ package com.example.alergenko.notifications;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 
-public class ProblemNotification {
+public class Notification {
     private String tile;
     private String message;
     private Context context;
 
-    public ProblemNotification(String tile, String message, Context context) {
+    public Notification(String tile, String message, Context context) {
         this.tile = tile;
         this.message = message;
         this.context = context;

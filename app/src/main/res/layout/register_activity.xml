@@ -63,193 +63,193 @@
         app:srcCompat="@drawable/ic_line"
         tools:ignore="ImageContrastCheck" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextSearch"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:inputType="text"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="clear_text"
+        android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegister"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/imgVLine"
-        app:startIconDrawable="@drawable/ic_person_grey"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/imgVLine">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInFirstName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_name_hint"
-            android:inputType="text"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            android:orientation="vertical">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextTextFirstName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="text"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_person_grey">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextLastName"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="text"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextSearch"
-        app:startIconDrawable="@drawable/ic_person_grey">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_name_hint"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInLastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_surname_hint"
-            android:inputType="text"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextEmailAddress"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextLastName"
-        app:startIconDrawable="@drawable/ic_email_grey">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextTextLastName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="text"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_person_grey">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="15sp"
-            android:hint="@string/input_email_hint"
-            android:inputType="textEmailAddress"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_surname_hint"
+                    android:inputType="text"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPhoneNumber"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="phone"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:counterMaxLength="8"
+                app:endIconMode="clear_text"
+                app:prefixText="@string/county_code"
+                app:prefixTextColor="@color/primary1"
+                app:startIconDrawable="@drawable/ic_phone_grey">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPhoneNumber"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="phone"
-        app:counterMaxLength="8"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
-        app:prefixText="@string/county_code"
-        app:prefixTextColor="@color/primary1"
-        app:startIconDrawable="@drawable/ic_phone_grey">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_phone_hint"
+                    android:inputType="phone"
+                    android:maxLength="8"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_phone_hint"
-            android:inputType="phone"
-            android:maxLength="8"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextEmailAddress"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:endIconMode="clear_text"
+                app:startIconDrawable="@drawable/ic_email_grey">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_email_hint"
+                    android:inputType="textEmailAddress"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPassword"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber"
-        app:startIconDrawable="@drawable/ic_lock_grey">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPsswd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_psswd_hint"
-            android:inputType="textPassword"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPassword"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_lock_grey">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInPsswd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_psswd_hint"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPasswordConfirm"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:startIconDrawable="@drawable/ic_lock_grey">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPsswdConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_psswd_confirm_hint"
-            android:inputType="textPassword"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPasswordConfirm"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:endIconMode="password_toggle"
+                app:startIconDrawable="@drawable/ic_lock_grey">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtInPsswdConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="@string/input_psswd_confirm_hint"
+                    android:inputType="textPassword"
+                    android:maxLength="20"
+                    android:textSize="15sp"
+                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnUpdate"
+        android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"

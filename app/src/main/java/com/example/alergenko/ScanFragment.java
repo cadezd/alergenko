@@ -35,7 +35,7 @@ public class ScanFragment extends Fragment {
     CompoundBarcodeView barcodeView;
     // Main view
     View view;
-    // Notification stuff
+    // Notification, custom view for notification, text placeholder for notification
     Toast toastNotification;
     View toastView;
     TextView txtVMessage;

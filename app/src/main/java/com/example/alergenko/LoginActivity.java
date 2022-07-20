@@ -1,6 +1,5 @@
 package com.example.alergenko;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.GetJWT;
 import com.example.alergenko.networking.NetworkConfig;
-import com.example.alergenko.notifications.ProblemNotification;
+import com.example.alergenko.notifications.Notification;
 
 import org.json.JSONObject;
 
@@ -55,6 +54,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> login());
         // opens register activty
         txtVRegister.setOnClickListener(view -> openRegisterActivity());
+
+        if (getIntent().getStringExtra("message") != null) { // displays error message if it comes from verification activty
+            String tile = getStringResourceByName("notification");
+            String message = getIntent().getStringExtra("message");
+            Notification problemNotification = new Notification(tile, message, this);
+            problemNotification.show();
+        }
     }
 
     // ADDITIONAL METHODS
@@ -66,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         try {
             // make a POST request to get JWT
-            User.setUsername(txtInEmail.getText().toString());
+            User.setEmail(txtInEmail.getText().toString());
             User.setPassword(txtInPsswd.getText().toString());
-            GetJWT getJWT = new GetJWT(User.getUsername(), User.getPassword(), this);
+            GetJWT getJWT = new GetJWT(User.getEmail(), User.getPassword(), this);
             AsyncTask<String, Void, JSONObject> response = getJWT.execute(NetworkConfig.URL_AUTH);
 
             // saves JWT and opens MainActivity
@@ -79,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         } catch (Exception e) {
             // handling exceptions
-            ProblemNotification problemNotification = new ProblemNotification(getStringResourceByName("exception"), e.getMessage(), this);
+            Notification problemNotification = new Notification(getStringResourceByName("exception"), e.getMessage(), this);
             problemNotification.show();
             txtInEmail.setText("");
             txtInPsswd.setText("");

@@ -11,7 +11,7 @@ import com.example.alergenko.R;
 import com.example.alergenko.RegisterActivity;
 import com.example.alergenko.ScanFragment;
 import com.example.alergenko.entities.User;
-import com.example.alergenko.notifications.ProblemNotification;
+import com.example.alergenko.notifications.Notification;
 
 import org.json.JSONObject;
 
@@ -62,7 +62,6 @@ public class GetProduct extends AsyncTask<String, Void, JSONObject> {
             return product;
         } catch (Exception e) {
             this.e = e;
-            Log.i("bala1", e.toString());
             return null;
         }
     }
@@ -71,7 +70,7 @@ public class GetProduct extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject response) {
         // handling exceptions
         if (this.e != null || response == null) {
-            ProblemNotification problemNotification = new ProblemNotification("Napaka", this.e.getMessage(), context);
+            Notification problemNotification = new Notification("Napaka", this.e.getMessage(), context);
             problemNotification.show();
             // TODO: dodaj da se odpre nov avitvity z gifom in napisom da produkta ni mogoče dobiti
 

@@ -3,7 +3,6 @@ package com.example.alergenko.networking;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -22,14 +21,13 @@ public class GetImage extends AsyncTask<String, Void, Drawable> {
 
     protected Drawable doInBackground(String... urls) {
         try {
+            // Getting image from internet
             InputStream in = new URL(urls[0]).openStream();
             Drawable drawable = Drawable.createFromStream(in, "img");
             if (drawable == null)
                 throw new Exception("Cannot access image of product on server");
-
             return drawable;
         } catch (Exception e) {
-            Log.i("bala1", e.toString());
             return ContextCompat.getDrawable(context, R.drawable.ic_image_not_supported);
         }
     }

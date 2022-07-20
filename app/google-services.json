@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "318001853837",
+    "firebase_url": "https://alergenko-user-db-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "alergenko-user-db",
+    "storage_bucket": "alergenko-user-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318001853837:android:378b2c7f2877e469b4f9c4",
+        "android_client_info": {
+          "package_name": "com.example.alergenko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318001853837-4oh1g32ctbi5arg4e5rh46cektcvf10b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alergenko",
+            "certificate_hash": "ccc09cd7c1166e5a43cba17fe297794ca51409ec"
+          }
+        },
+        {
+          "client_id": "318001853837-4bo0olhmrqi0kvjmb60qb70873d7jsn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9rco4yALPvCvos787xRF_khoBycvqmXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318001853837-4bo0olhmrqi0kvjmb60qb70873d7jsn3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

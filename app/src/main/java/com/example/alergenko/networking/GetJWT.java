@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import android.widget.EditText;
 
 import com.example.alergenko.R;
-import com.example.alergenko.notifications.ProblemNotification;
+import com.example.alergenko.notifications.Notification;
 
 import org.json.JSONObject;
 
@@ -80,7 +80,7 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject response) {
         // handling exceptions
         if (this.e != null) {
-            ProblemNotification problemNotification = new ProblemNotification(getStringResourceByName("exception"), this.e.getMessage(), context);
+            Notification problemNotification = new Notification(getStringResourceByName("exception"), this.e.getMessage(), context);
             problemNotification.show();
             clearTextInputs(context);
         }
@@ -98,8 +98,8 @@ public class GetJWT extends AsyncTask<String, Void, JSONObject> {
     }
 
     private String getStringResourceByName(String aString) {
-        String packageName = ((Activity) context).getPackageName();
-        int resId = ((Activity) context).getResources().getIdentifier(aString, "string", packageName);
-        return ((Activity) context).getString(resId);
+        String packageName = context.getPackageName();
+        int resId = context.getResources().getIdentifier(aString, "string", packageName);
+        return context.getString(resId);
     }
 }

@@ -5,6 +5,18 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
     }
+    dependencyResolutionManagement {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
+    pluginManagement {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
 }
 rootProject.name = "Alergenko"
 include ':app'
