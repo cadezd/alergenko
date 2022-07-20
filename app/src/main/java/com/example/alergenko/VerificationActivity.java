@@ -14,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alergenko.entities.User;
 import com.example.alergenko.entities.UserHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.alergenko.networking.NetworkConfig;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -25,6 +23,9 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class VerificationActivity extends AppCompatActivity {
@@ -98,7 +99,7 @@ public class VerificationActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks callbackVerification = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks callbackVerification = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
@@ -141,23 +142,20 @@ public class VerificationActivity extends AppCompatActivity {
     private void signTheUserByCredentials(PhoneAuthCredential phoneAuthCredential) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         firebaseAuth.signInWithCredential(phoneAuthCredential)
-                .addOnCompleteListener(VerificationActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            registerUser();
-                            openLoginActivity(getStringResourceByName("notification_registration_success")); // opens login activity with message in intent
-                        } else {
-                            openRegisterActivity(task.getException().getMessage()); // opens register activity with exception message in intent
-                        }
+                .addOnCompleteListener(VerificationActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        registerUser();
+                        openLoginActivity(getStringResourceByName("notification_registration_success")); // opens login activity with message in intent
+                    } else {
+                        openRegisterActivity(Objects.requireNonNull(task.getException()).getMessage()); // opens register activity with exception message in intent
                     }
                 });
     }
 
     public void registerUser() {
-        firebaseDatabase = FirebaseDatabase.getInstance("https://alergenko-user-db-default-rtdb.europe-west1.firebasedatabase.app/");
+        // registers user
+        firebaseDatabase = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE);
         databaseReference = firebaseDatabase.getReference("users");
-
         Object userHelper = new UserHelper(
                 User.getUserId(),
                 User.getFirstName(),
@@ -347,4 +345,5 @@ public class VerificationActivity extends AppCompatActivity {
         int resId = getResources().getIdentifier(aString, "string", packageName);
         return getString(resId);
     }
+
 }

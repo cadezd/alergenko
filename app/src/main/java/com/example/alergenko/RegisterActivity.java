@@ -1,16 +1,29 @@
 package com.example.alergenko;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alergenko.entities.User;
+import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.notifications.Notification;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -33,9 +46,14 @@ public class RegisterActivity extends AppCompatActivity {
     EditText txtInPsswdConfirm;
     Button btnRegister;
 
+    // for checking internet connection
+    boolean isConnected;
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        checkConnectivity();
 
         // INICIALIZATION OF COMPONENTS
         btnBack = findViewById(R.id.btnBack);
@@ -46,14 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
         txtInPsswd = findViewById(R.id.txtInPsswd);
         txtInPsswdConfirm = findViewById(R.id.txtInPsswdConfirm);
         btnRegister = findViewById(R.id.btnRegister);
-
-        // TODO: remove
-        txtInFirstName.setText("David");
-        txtInLastName.setText("Čadež");
-        txtInEmail.setText("david.cadez89@gmail.com");
-        txtInPhoneNumber.setText("31290128");
-        txtInPsswd.setText("David123cadez_");
-        txtInPsswdConfirm.setText("David123cadez_");
 
         // CLICK LISTENERS
         btnBack.setOnClickListener(view -> openLoginActivity());
@@ -69,8 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     // ADDITIONAL METHODS
     protected void register() {
+
+        // notifies user that there is no internet connection
+        if (!isConnected) {
+            Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("no_internet_connection"), this);
+            problemNotification.show();
+        }
+
         // checking if entered data is valid
-        if (!isValidFirstName() || !isValidLastName() || !isValidPhoneNumber() || !isValidEmail() || !isPasswordStrong() || !isValidPassword())
+        if (!isValidFirstName() || !isValidLastName() || !isValidPhoneNumber() || !isPhoneNumberDuplicate() || !isValidEmail() || !isEmailDuplicate() || !isPasswordStrong() || !isValidPassword())
             return;
 
         // collecting enterd data
@@ -124,6 +141,34 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
+    protected boolean isPhoneNumberDuplicate() {
+        TextInputLayout textInputLayout = findViewById(R.id.editTextPhoneNumber);
+        final boolean[] isPhoneNumberDuplicate = {false};
+        DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
+        ref.orderByChild("phoneNumber").equalTo("+386" + txtInPhoneNumber.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // checks if phone number already exists in database
+                if (dataSnapshot.exists()) {
+                    isPhoneNumberDuplicate[0] = true;
+                    txtInPhoneNumber.getText().clear();
+                    txtInPhoneNumber.requestFocus();
+                    textInputLayout.setError("Račun s to telefonsko številko že obstaja");
+                } else {
+                    textInputLayout.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { // handling errors
+                Notification problemNotification = new Notification(getStringResourceByName("excpetion"), error.getMessage(), RegisterActivity.this);
+                problemNotification.show();
+                isPhoneNumberDuplicate[0] = true;
+            }
+        });
+
+        return isPhoneNumberDuplicate[0];
+    }
+
     protected boolean isValidEmail() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -135,6 +180,34 @@ public class RegisterActivity extends AppCompatActivity {
         txtInEmail.requestFocus();
         textInputLayout.setError("Potrebno je vnesti vaš e-poštni naslov");
         return false;
+    }
+
+    protected boolean isEmailDuplicate() {
+        TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
+        final boolean[] isEmailDuplicate = {false};
+        DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
+        ref.orderByChild("email").equalTo(txtInEmail.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // checks if email already exists in database
+                if (dataSnapshot.exists()) {
+                    isEmailDuplicate[0] = true;
+                    txtInEmail.getText().clear();
+                    txtInEmail.requestFocus();
+                    textInputLayout.setError("Račun s tem e-poštnim naslovom že obstaja");
+                } else {
+                    textInputLayout.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { // handling errors
+                Notification problemNotification = new Notification(getStringResourceByName("excpetion"), error.getMessage(), RegisterActivity.this);
+                problemNotification.show();
+                isEmailDuplicate[0] = true;
+            }
+        });
+
+        return isEmailDuplicate[0];
     }
 
     protected boolean isPasswordStrong() {
@@ -169,6 +242,39 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
+    // Method to check network connectivity in Main Activity
+    private void checkConnectivity() {
+        // here we are getting the connectivity service from connectivity manager
+        final ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Getting network Info
+        // give Network Access Permission in Manifest
+        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+
+        // isConnected is a boolean variable
+        // here we check if network is connected or is getting connected
+        isConnected = activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+
+        // network callback to  monitor network
+        connectivityManager.registerNetworkCallback(
+                new NetworkRequest.Builder()
+                        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                        .build(), callbackConnectivity);
+    }
+
+    // callback function for checking internet connection
+    private final ConnectivityManager.NetworkCallback callbackConnectivity = new ConnectivityManager.NetworkCallback() {
+        @Override
+        public void onAvailable(Network network) {
+            isConnected = true;
+        }
+
+        @Override
+        public void onLost(Network network) {
+            isConnected = false;
+        }
+    };
+
     public static String hashSha1(String clearString) { // for hasing passwords
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
@@ -179,12 +285,11 @@ public class RegisterActivity extends AppCompatActivity {
                 buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
             }
             return buffer.toString();
-        } catch (Exception ignored) {
-            ignored.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
-
 
     protected void openVerifivationActivity(String phoneNumber) {
         Intent intent = new Intent(this, VerificationActivity.class);
