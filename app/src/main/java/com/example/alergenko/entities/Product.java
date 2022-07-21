@@ -1,5 +1,15 @@
 package com.example.alergenko.entities;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.core.content.ContextCompat;
+
+import com.example.alergenko.R;
+import com.example.alergenko.networking.GetImage;
+
 public class Product {
 
     private String barcode;
@@ -97,6 +107,19 @@ public class Product {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Drawable getProductImg(Context context) {
+        // loads image of a product from web
+        try {
+            GetImage getImage = new GetImage(context);
+            AsyncTask<String, Void, Drawable> response = getImage.execute(this.mainImageSrc);
+            return response.get();
+        } catch (Exception e) {
+            // loads default (product image not supported)
+            Log.i("bala1", e.toString());
+            return ContextCompat.getDrawable(context, R.drawable.ic_image_not_supported);
+        }
     }
 
     @Override

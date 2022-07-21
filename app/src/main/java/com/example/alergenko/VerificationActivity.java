@@ -23,8 +23,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -162,7 +161,8 @@ public class VerificationActivity extends AppCompatActivity {
                 User.getLastName(),
                 User.getEmail(),
                 User.getPhoneNumber(),
-                User.getPassword()
+                User.getPassword(),
+                new ArrayList<String>()
         );
         databaseReference.child(User.getUserId()).setValue(userHelper);
     }

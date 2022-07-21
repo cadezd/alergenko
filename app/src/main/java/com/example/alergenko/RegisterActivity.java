@@ -79,11 +79,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     // ADDITIONAL METHODS
     protected void register() {
-
         // notifies user that there is no internet connection
         if (!isConnected) {
             Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("no_internet_connection"), this);
             problemNotification.show();
+            return;
         }
 
         // checking if entered data is valid
@@ -91,10 +91,10 @@ public class RegisterActivity extends AppCompatActivity {
             return;
 
         // collecting enterd data
-        User.setFirstName(txtInFirstName.getText().toString());
-        User.setLastName(txtInLastName.getText().toString());
-        User.setPhoneNumber("+386" + txtInPhoneNumber.getText().toString());
-        User.setEmail(txtInEmail.getText().toString());
+        User.setFirstName(txtInFirstName.getText().toString().trim());
+        User.setLastName(txtInLastName.getText().toString().trim());
+        User.setPhoneNumber("+386" + txtInPhoneNumber.getText().toString().trim());
+        User.setEmail(txtInEmail.getText().toString().trim());
         String password = txtInPsswd.getText().toString();
         User.setPassword(hashSha1(User.getEmail() + password));
         User.setUserId(hashSha1(User.getEmail() + password));

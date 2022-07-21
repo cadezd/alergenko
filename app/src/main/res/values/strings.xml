@@ -96,6 +96,7 @@
     <string name="no_internet_connection">Nimate vzpostavljene internetne povezave.</string>
     <string name="exception_verification">Tekom verifikacije je prišlo do napake:</string>
     <string name="exception_bad_verification_code">Napačna verifikacijska koda.</string>
+    <string name="exception_username_password">Napačen e-poštni naslov ali geslo.</string>
     <string name="exception_firebase">Prišlo je do omrežne napake (kot je časovna omejitev ali prekinjena povezava).</string>
 
     <!--Notification strings-->

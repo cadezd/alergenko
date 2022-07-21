@@ -100,6 +100,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/input_name_hint"
                     android:inputType="text"
+                    android:maxLength="30"
                     android:textSize="15sp"
                     tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -127,6 +128,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/input_surname_hint"
                     android:inputType="text"
+                    android:maxLength="30"
                     android:textSize="15sp"
                     tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -184,6 +186,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/input_email_hint"
                     android:inputType="textEmailAddress"
+                    android:maxLength="320"
                     android:textSize="15sp"
                     tools:ignore="TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
 

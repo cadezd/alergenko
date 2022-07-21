@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.alergenko.adapters.ListAdapter;
 import com.example.alergenko.entities.Product;
+import com.example.alergenko.entities.User;
 
 import java.util.ArrayList;
 
@@ -23,16 +24,16 @@ public class HistoryFragment extends Fragment {
         // ArrayList of test Products
         // TODO: naredi tako da boš podatke o izdelik dobil iz PB
         // TODO: dodaj še podatke o hranilnih vrednostih
-        ArrayList<Product> products = new ArrayList<>();
+        //ArrayList<Product> products = User.getHistory();
 
         View contentView = inflater.inflate(R.layout.history_fragement, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
-        ListAdapter adapter = new ListAdapter(getContext(), products);
+        ListAdapter adapter = new ListAdapter(getContext(), User.getHistory());
         listView.setAdapter(adapter);
 
         // opens ProductInfoActivity when user clicks on one element in the list view
         listView.setClickable(true);
-        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(products, position));
+        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(User.getHistory(), position));
 
         return contentView;
     }

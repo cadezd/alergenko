@@ -17,6 +17,8 @@ import com.example.alergenko.entities.Product;
 import java.util.ArrayList;
 
 public class ListAdapter extends ArrayAdapter<Product> {
+
+
     public ListAdapter(Context context, ArrayList<Product> products) {
         super(context, R.layout.product_card, products);
     }
@@ -33,15 +35,12 @@ public class ListAdapter extends ArrayAdapter<Product> {
         // INICIALIZATION OF COMPONENTS
         ImageView imgVProductImg = convertView.findViewById(R.id.imgVProductImg);
         TextView txtVProductName = convertView.findViewById(R.id.txtVProductName);
-        TextView txtVAllergens = convertView.findViewById(R.id.txtVAllergens);
-        TextView txtVIngredients = convertView.findViewById(R.id.txtVIngredients);
 
-        // setting values od components
-        //imgVProductImg.setImageResource(product.getMainImageSrc());
+        // setting values of components
+        imgVProductImg.setImageDrawable(product.getProductImg(getContext()));
         txtVProductName.setText(product.getName());
-        txtVAllergens.setText(product.getAllergens());
-        txtVIngredients.setText(product.getIngredients());
 
         return convertView;
     }
+
 }
