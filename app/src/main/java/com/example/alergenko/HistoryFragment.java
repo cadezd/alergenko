@@ -8,9 +8,13 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -23,11 +27,15 @@ import com.example.alergenko.entities.User;
 import com.example.alergenko.notifications.Notification;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class HistoryFragment extends Fragment {
 
     // for checking internet connection
     boolean isConnected;
+
+    ListAdapter adapter;
+    EditText txtInProductName;
 
     @Nullable
     @Override
@@ -38,16 +46,35 @@ public class HistoryFragment extends Fragment {
 
         View contentView = inflater.inflate(R.layout.history_fragement, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
-        ListAdapter adapter = new ListAdapter(getContext(), User.getHistory());
-        listView.setAdapter(adapter);
 
+        adapter = new ListAdapter(getContext(), User.getHistory());
+        listView.setAdapter(adapter);
         // opens ProductInfoActivity when user clicks on one element in the list view if it has connection
         listView.setClickable(true);
         listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(User.getHistory(), position));
 
+        txtInProductName = contentView.findViewById(R.id.txtInProductName);
+        txtInProductName.addTextChangedListener(new TextWatcher() { // filters products when user searches for specific product/s
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.e("bala", charSequence.toString());
+                adapter.getFilter().filter(charSequence.toString().toLowerCase(Locale.ROOT).trim());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
         return contentView;
     }
 
+    // ADDITIONAL METHODS
     // Method to check network connectivity in Main Activity
     private void checkConnectivity() {
         // here we are getting the connectivity service from connectivity manager

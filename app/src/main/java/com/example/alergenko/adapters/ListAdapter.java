@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,20 +18,27 @@ import com.example.alergenko.entities.Product;
 
 import java.util.ArrayList;
 
-public class ListAdapter extends ArrayAdapter<Product> {
+// TODO : dodelja metode
 
+public class ListAdapter extends BaseAdapter implements Filterable {
+
+    Context context;
+    ArrayList<Product> products, productsTmp;
+    CustomFilter customFilter;
 
     public ListAdapter(Context context, ArrayList<Product> products) {
-        super(context, R.layout.product_card, products);
+        this.context = context;
+        this.products = products;
+        this.productsTmp = products;
     }
+
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         Product product = getItem(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.product_card, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.product_card, parent, false);
         }
 
         // INICIALIZATION OF COMPONENTS
@@ -37,10 +46,69 @@ public class ListAdapter extends ArrayAdapter<Product> {
         TextView txtVProductName = convertView.findViewById(R.id.txtVProductName);
 
         // setting values of components
-        imgVProductImg.setImageDrawable(product.getProductImg(getContext()));
+        imgVProductImg.setImageDrawable(product.getProductImg(context));
         txtVProductName.setText(product.getName());
 
         return convertView;
     }
 
+    @Override
+    public int getCount() {
+        return this.products.size();
+    }
+
+    @Override
+    public Product getItem(int i) {
+        return products.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (customFilter == null) {
+            customFilter = new CustomFilter();
+        }
+
+        return customFilter;
+    }
+
+    class CustomFilter extends Filter {
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            ListAdapter.this.products = (ArrayList<Product>) results.values;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            FilterResults results = new FilterResults();
+
+            if (constraint != null && constraint.length() > 0) {
+                // performing search
+                constraint = constraint.toString().toLowerCase();
+                ArrayList<Product> filteredProducts = new ArrayList<>();
+                for (int i = 0; i < ListAdapter.this.products.size(); i++) {
+                    Product product = ListAdapter.this.products.get(i);
+                    if (product.getName().toLowerCase().contains(constraint.toString())) {
+                        filteredProducts.add(product);
+                    }
+                }
+                results.count = filteredProducts.size();
+                results.values = filteredProducts;
+            } else {
+                results.count = productsTmp.size();
+                results.values = productsTmp;
+            }
+
+            return results;
+        }
+    }
 }
+
+

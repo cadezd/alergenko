@@ -57,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // INICIALIZATION OF COMPONENTS
         btnBack = findViewById(R.id.btnBack);
-        txtInFirstName = findViewById(R.id.txtInFirstName);
+        txtInFirstName = findViewById(R.id.txtInProductName);
         txtInLastName = findViewById(R.id.txtInLastName);
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPhoneNumber = findViewById(R.id.txtInPhoneNumber);
