@@ -1,5 +1,6 @@
 package com.example.alergenko;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -29,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     // for checking internet connection
     boolean isConnected;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onStart() {
         super.onStart();
@@ -117,18 +118,17 @@ public class LoginActivity extends AppCompatActivity {
                     User.setPhoneNumber(snapshot.child(userId).child("phoneNumber").getValue(String.class));
                     User.setPassword(snapshot.child(userId).child("password").getValue(String.class));
 
-                    // retrieve user settings
-                    ArrayList<Boolean> settingsTmp = new ArrayList<>();
-                    for (DataSnapshot snapshotSettings : snapshot.child(userId).child("settings").getChildren())
-                        settingsTmp.add(snapshotSettings.getValue(Boolean.class));
-                    Boolean[] settings = new Boolean[settingsTmp.size()];
-                    settings = settingsTmp.toArray(settings);
+                    ArrayList<Boolean> settings = new ArrayList<>();
+                    for (DataSnapshot snapshotSettings : snapshot.child(userId).child("settings").getChildren()) {
+                        settings.add(snapshotSettings.getValue(Boolean.class));
+                    }
                     User.setSettings(settings);
 
-                    // retrieve user history of scanned products
-                    List<Product> products;
-                    for (DataSnapshot snapshotHistory : snapshot.child(userId).child("history").getChildren())
-                        User.addProductToHistory(snapshotHistory.getValue(Product.class));
+                    ArrayList<Product> history = new ArrayList<>();
+                    for (DataSnapshot snapshotSettings : snapshot.child(userId).child("history").getChildren()) {
+                        history.add(snapshotSettings.getValue(Product.class));
+                    }
+                    User.setHistory(history);
 
                     openMainActivity();
                 } else {

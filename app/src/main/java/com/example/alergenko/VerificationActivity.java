@@ -161,8 +161,7 @@ public class VerificationActivity extends AppCompatActivity {
                 User.getLastName(),
                 User.getEmail(),
                 User.getPhoneNumber(),
-                User.getPassword(),
-                new ArrayList<String>()
+                User.getPassword()
         );
         databaseReference.child(User.getUserId()).setValue(userHelper);
     }

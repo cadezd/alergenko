@@ -10,9 +10,7 @@ public class User {
     private static String email;
     private static String phoneNumber;
     private static String password;
-    private static String jwt;
-    private static Boolean[] settings = {true, true, true};
-    private static ArrayList<String> barcodes = new ArrayList<>();
+    private static ArrayList<Boolean> settings = new ArrayList<>();
     private static ArrayList<Product> history = new ArrayList<>();
 
 
@@ -64,19 +62,11 @@ public class User {
         User.password = password;
     }
 
-    public static String getJwt() {
-        return jwt;
+    public static ArrayList<Boolean> getSettings() {
+        return settings;
     }
 
-    public static void setJwt(String jwt) {
-        User.jwt = jwt;
-    }
-
-    public static Boolean[] getSettings() {
-        return User.settings;
-    }
-
-    public static void setSettings(Boolean[] settings) {
+    public static void setSettings(ArrayList<Boolean> settings) {
         User.settings = settings;
     }
 
@@ -88,22 +78,9 @@ public class User {
         User.history = history;
     }
 
-    public static void addProductToHistory(Product product) {
+    public static void addProductToUserHistory(Product product){
         User.history.add(0, product);
     }
-
-    public static ArrayList<String> getBarcodes() {
-        return barcodes;
-    }
-
-    public static void setBarcodes(ArrayList<String> barcodes) {
-        User.barcodes = barcodes;
-    }
-
-    public static void addBarcodeToBarcodes(String barcode) {
-        barcodes.add(0, barcode);
-    }
-
 
     public static void clearFields() {
         userId = null;
@@ -112,8 +89,10 @@ public class User {
         email = null;
         phoneNumber = null;
         password = null;
-        jwt = null;
-        settings = new Boolean[]{true, true, true};
+        settings = new ArrayList<>();
+        settings.add(Boolean.TRUE);
+        settings.add(Boolean.TRUE);
+        settings.add(Boolean.TRUE);
         history = null;
     }
 }

@@ -25,7 +25,7 @@
 
     <!--Product info activity-->
     <string name="title_product_info">Informacije o izdelku</string>
-
+    <string name="product_does_not_contain_allergens">Izdelek ne vsebuje alergenov.</string>
 
     <!--Edit info activity-->
     <string name="title_edit_info">Podatki o računu</string>

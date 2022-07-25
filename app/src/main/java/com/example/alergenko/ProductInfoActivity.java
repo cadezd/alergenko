@@ -9,19 +9,28 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.alergenko.entities.Product;
+import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.GetImage;
-import com.example.alergenko.networking.GetProduct;
-
-import org.json.JSONObject;
+import com.example.alergenko.networking.NetworkConfig;
+import com.example.alergenko.networking.OnGetDataListener;
+import com.example.alergenko.notifications.Notification;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
@@ -32,6 +41,8 @@ public class ProductInfoActivity extends AppCompatActivity {
     }
 
     // DECLARATION OF COMPONENTS
+    ScrollView scrollView;
+    ProgressBar progressBar;
     TextView txtVProductName;
     ImageView imgVProductImg;
     TextView txtVAllergens;
@@ -44,6 +55,8 @@ public class ProductInfoActivity extends AppCompatActivity {
         super.onStart();
 
         // INICIALIZATION OF COMPONENTS
+        scrollView = findViewById(R.id.scrollView);
+        progressBar = findViewById(R.id.progressBar);
         txtVProductName = findViewById(R.id.txtVProductName);
         imgVProductImg = findViewById(R.id.imgVProductImg);
         txtVAllergens = findViewById(R.id.txtVAllergens);
@@ -58,23 +71,70 @@ public class ProductInfoActivity extends AppCompatActivity {
         btnClose.setOnClickListener(view -> openMainActivity(fragmentToOpen));
 
         // GETTING AND DISPLAYING PRODUCT DATA
-        Product product = getProduct(intent.getStringExtra("barcode"));
-        displayProductData(product);
+        String barcode = getIntent().getStringExtra("barcode");
+        if (fragmentToOpen == R.id.nav_history) {
+            showLoadingScreen();    // searches for product in user history
+            Product product = readDataFromHistory(barcode);
+            clearLoadingScreen();
+            displayProductData(product);
+        } else {    // searches for product in database
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("products");
+            readDataFromDatabse(databaseReference.child(barcode), new OnGetDataListener() {
+                @Override
+                public void onSuccess(Product dataSnapshotValue) {
+                    clearLoadingScreen();
+                    User.addProductToUserHistory(dataSnapshotValue);
+                    displayProductData(dataSnapshotValue);
+                }
+            });
+        }
     }
 
     // ADDITIONAL METHODS
-    private void openMainActivity(int fragmentToOpen) {
-        Intent intent = new Intent(ProductInfoActivity.this, MainActivity.class);
-        intent.putExtra("fragmentToOpen", fragmentToOpen);
-        startActivity(intent);
+    public void readDataFromDatabse(DatabaseReference ref, final OnGetDataListener listener) {
+        showLoadingScreen();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // This is how you use the value once it is loaded! Make sure to pass the
+                // value of the DataSnapshot object, not the object itself (this was the
+                // original answerer's mistake!)
+                listener.onSuccess(snapshot.getValue(Product.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), ProductInfoActivity.this);
+                problemNotification.show();
+            }
+        });
     }
 
+    public Product readDataFromHistory(String barcode) {
+        for (Product product : User.getHistory()) {
+            if (product.getBarcode().equals(barcode))
+                return product;
+        }
+        return null;
+    }
+
+    public Drawable getProductImg(String url) {
+        // loads image of a product from web
+        try {
+            GetImage getImage = new GetImage(this);
+            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
+            return response.get();
+        } catch (Exception e) {
+            // loads default (product image not supported)
+            return ContextCompat.getDrawable(this, R.drawable.ic_image_not_supported);
+        }
+    }
 
     private void displayProductData(Product product) {
         Drawable productImg = getProductImg(product.getMainImageSrc());
         imgVProductImg.setImageDrawable(productImg);
         txtVProductName.setText(product.getName());
-        txtVAllergens.setText(product.getAllergens());
+        txtVAllergens.setText((product.getAllergens() != null) ? product.getAllergens() + "." : getStringResourceByName("product_does_not_contain_allergens"));
         txtVIngredients.setText(product.getIngredients());
 
         String[] rows = product.getNutritionValues().split("\\$");
@@ -87,52 +147,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                     (cols.length - 1 >= 2) ? cols[2] : "",
                     i));
         }
-
     }
-
-    private Product getProduct(String barcode) {
-        try {
-            GetProduct getProduct = new GetProduct(barcode, this);
-            AsyncTask<String, Void, JSONObject> response = getProduct.execute();
-            JSONObject jsonObject = response.get();
-
-            if (jsonObject == null)
-                throw new Exception("Napaka pri povezavi");
-
-            Product product = new Product(
-                    (String) jsonObject.get("barcode"),
-                    (String) jsonObject.get("itemId"),
-                    (String) jsonObject.get("name"),
-                    (String) jsonObject.get("brandName"),
-                    (String) jsonObject.get("mainImageSrc"),
-                    (String) jsonObject.get("allergens"),
-                    (String) jsonObject.get("ingredients"),
-                    (String) jsonObject.get("nutritionValues"),
-                    (String) jsonObject.get("url")
-            );
-
-            return product;
-        } catch (Exception e) {
-            // in case of exceptions oppens MainActivity
-            // TODO: dodaj da se odpre nov avitvity z gifom in napisom da produkta ni mogoče dobiti
-            Log.i("bala1", e.toString());
-            return null;
-        }
-    }
-
-    public Drawable getProductImg(String url) {
-        // loads image of a product from web
-        try {
-            GetImage getImage = new GetImage(this);
-            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
-            return response.get();
-        } catch (Exception e) {
-            // loads default (product image not supported)
-            Log.i("bala1", e.toString());
-            return ContextCompat.getDrawable(this, R.drawable.ic_image_not_supported);
-        }
-    }
-
 
     @SuppressLint("SetTextI18n")
     public TableRow createTableRow(String nutrient, String quantity, String unit, int index) {
@@ -152,7 +167,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         txtVNutrient.setPadding(25, 3, 0, 3);
         txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_medium));
         if (nutrient.contains("—")) // indent
-            nutrient = "   " + nutrient;
+            nutrient = "  " + nutrient;
         if (index == 0) {
             txtVNutrient.setTextSize(16);
             txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
@@ -170,4 +185,27 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         return tableRow;
     }
+
+    public void showLoadingScreen() {
+        scrollView.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void clearLoadingScreen() {
+        scrollView.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
+    }
+
+    private String getStringResourceByName(String aString) {
+        String packageName = getPackageName();
+        int resId = getResources().getIdentifier(aString, "string", packageName);
+        return getString(resId);
+    }
+
+    private void openMainActivity(int fragmentToOpen) {
+        Intent intent = new Intent(ProductInfoActivity.this, MainActivity.class);
+        intent.putExtra("fragmentToOpen", fragmentToOpen);
+        startActivity(intent);
+    }
+
 }

@@ -9,8 +9,8 @@ public class UserHelper {
     private String email;
     private String phoneNumber;
     private String password;
-    private ArrayList<String> barcodes;
-    private ArrayList<Boolean> settings;
+    private ArrayList<Boolean> settings = new ArrayList<>();
+    private ArrayList<Product> history = new ArrayList<>();
 
     public UserHelper(String userId, String firstName, String lastName, String email, String phoneNumber, String password) {
         this.userId = userId;
@@ -19,24 +19,20 @@ public class UserHelper {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.settings = new ArrayList<>();
-        settings.add(Boolean.TRUE);
-        settings.add(Boolean.TRUE);
-        settings.add(Boolean.TRUE);
+        this.settings.add(Boolean.TRUE);
+        this.settings.add(Boolean.TRUE);
+        this.settings.add(Boolean.TRUE);
     }
 
-    public UserHelper(String userId, String firstName, String lastName, String email, String phoneNumber, String password, ArrayList<String> barcodes) {
+    public UserHelper(String userId, String firstName, String lastName, String email, String phoneNumber, String password, ArrayList<Boolean> settings, ArrayList<Product> history) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.barcodes = barcodes;
-        this.settings = new ArrayList<>();
-        settings.add(Boolean.TRUE);
-        settings.add(Boolean.TRUE);
-        settings.add(Boolean.TRUE);
+        this.settings = settings;
+        this.history = history;
     }
 
     public String getUserId() {
@@ -87,20 +83,20 @@ public class UserHelper {
         this.password = password;
     }
 
-    public ArrayList<String> getBarcodes() {
-        return barcodes;
-    }
-
-    public void setBarcodes(ArrayList<String> barcodes) {
-        this.barcodes = barcodes;
-    }
-
     public ArrayList<Boolean> getSettings() {
         return settings;
     }
 
     public void setSettings(ArrayList<Boolean> settings) {
         this.settings = settings;
+    }
+
+    public ArrayList<Product> getHistory() {
+        return history;
+    }
+
+    public void setHistory(ArrayList<Product> history) {
+        this.history = history;
     }
 
     @Override
@@ -112,8 +108,8 @@ public class UserHelper {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
-                ", barcodes=" + barcodes +
                 ", settings=" + settings +
+                ", history=" + history +
                 '}';
     }
 }

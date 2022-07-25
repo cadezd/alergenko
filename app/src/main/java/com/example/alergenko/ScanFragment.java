@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.alergenko.networking.NetworkConfig;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -101,11 +103,13 @@ public class ScanFragment extends Fragment {
         @Override
         public void onAvailable(Network network) {
             isConnected = true;
+            FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).goOnline();
         }
 
         @Override
         public void onLost(Network network) {
             isConnected = false;
+            FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).goOffline();
         }
     };
 
