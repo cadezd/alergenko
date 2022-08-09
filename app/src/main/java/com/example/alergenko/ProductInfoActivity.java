@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +25,8 @@ import com.example.alergenko.networking.GetImage;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.networking.OnGetDataListener;
 import com.example.alergenko.notifications.Notification;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,8 +46,11 @@ public class ProductInfoActivity extends AppCompatActivity {
     ProgressBar progressBar;
     TextView txtVProductName;
     ImageView imgVProductImg;
+    TextView txtVTitleAllergens;
     TextView txtVAllergens;
+    TextView txtVTitleIngredients;
     TextView txtVIngredients;
+    TextView txtVTitleNutritionValues;
     TableLayout tblLyNutritionValues;
     Button btnClose;
 
@@ -59,8 +63,11 @@ public class ProductInfoActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         txtVProductName = findViewById(R.id.txtVProductName);
         imgVProductImg = findViewById(R.id.imgVProductImg);
+        txtVTitleAllergens = findViewById(R.id.txtVTitleAllergens);
         txtVAllergens = findViewById(R.id.txtVAllergens);
+        txtVTitleIngredients = findViewById(R.id.txtVTitleIngredients);
         txtVIngredients = findViewById(R.id.txtVIngredients);
+        txtVTitleNutritionValues = findViewById(R.id.txtVTitleNutritionValues);
         tblLyNutritionValues = findViewById(R.id.tblLyNutritionValues);
         btnClose = findViewById(R.id.btnClose);
 
@@ -84,6 +91,7 @@ public class ProductInfoActivity extends AppCompatActivity {
                 public void onSuccess(Product dataSnapshotValue) {
                     clearLoadingScreen();
                     User.addProductToUserHistory(dataSnapshotValue);
+                    addProductToUserHistoryOnFirebase(dataSnapshotValue);
                     displayProductData(dataSnapshotValue);
                 }
             });
@@ -91,14 +99,20 @@ public class ProductInfoActivity extends AppCompatActivity {
     }
 
     // ADDITIONAL METHODS
+    private void addProductToUserHistoryOnFirebase(Product product) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
+        databaseReference.child(user.getUid()).child("history").child(product.getBarcode()).setValue(product);
+    }
+
     public void readDataFromDatabse(DatabaseReference ref, final OnGetDataListener listener) {
         showLoadingScreen();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 // This is how you use the value once it is loaded! Make sure to pass the
-                // value of the DataSnapshot object, not the object itself (this was the
-                // original answerer's mistake!)
+                // value of the DataSnapshot object, not the object itself
+                //TODO: dodaj da ce j enull da prikaze da izdelka ni mogoče dobiti
                 listener.onSuccess(snapshot.getValue(Product.class));
             }
 
@@ -131,21 +145,41 @@ public class ProductInfoActivity extends AppCompatActivity {
     }
 
     private void displayProductData(Product product) {
+        txtVTitleAllergens.setVisibility(View.GONE);
+        txtVAllergens.setVisibility(View.GONE);
+        txtVTitleIngredients.setVisibility(View.GONE);
+        txtVIngredients.setVisibility(View.GONE);
+        txtVTitleNutritionValues.setVisibility(View.GONE);
+        tblLyNutritionValues.setVisibility(View.GONE);
+
+        // Displays product image and product name
         Drawable productImg = getProductImg(product.getMainImageSrc());
         imgVProductImg.setImageDrawable(productImg);
         txtVProductName.setText(product.getName());
-        txtVAllergens.setText((product.getAllergens() != null) ? product.getAllergens() + "." : getStringResourceByName("product_does_not_contain_allergens"));
-        txtVIngredients.setText(product.getIngredients());
 
-        String[] rows = product.getNutritionValues().split("\\$");
-        String[] cols;
-        for (int i = 0; i < rows.length; i++) {
-            cols = rows[i].split(":");
-            tblLyNutritionValues.addView(createTableRow(
-                    cols[0],
-                    (cols.length - 1 >= 1) ? cols[1] : "",
-                    (cols.length - 1 >= 2) ? cols[2] : "",
-                    i));
+        if (User.getSettings().get(0)) { // Displays allergens if user wants to see it
+            txtVTitleAllergens.setVisibility(View.VISIBLE);
+            txtVAllergens.setVisibility(View.VISIBLE);
+            txtVAllergens.setText((product.getAllergens() != null) ? product.getAllergens() + "." : getStringResourceByName("product_does_not_contain_allergens"));
+        }
+        if (User.getSettings().get(1)) { // Displays ingredients if user wants to see it
+            txtVTitleIngredients.setVisibility(View.VISIBLE);
+            txtVIngredients.setVisibility(View.VISIBLE);
+            txtVIngredients.setText(product.getIngredients());
+        }
+        if (User.getSettings().get(2)) { // Displays nutrition values if user wants to see it
+            txtVTitleNutritionValues.setVisibility(View.VISIBLE);
+            tblLyNutritionValues.setVisibility(View.VISIBLE);
+            String[] rows = product.getNutritionValues().split("\\$");
+            String[] cols;
+            for (int i = 0; i < rows.length; i++) {
+                cols = rows[i].split(":");
+                tblLyNutritionValues.addView(createTableRow(
+                        cols[0],
+                        (cols.length - 1 >= 1) ? cols[1] : "",
+                        (cols.length - 1 >= 2) ? cols[2] : "",
+                        i));
+            }
         }
     }
 
@@ -207,5 +241,4 @@ public class ProductInfoActivity extends AppCompatActivity {
         intent.putExtra("fragmentToOpen", fragmentToOpen);
         startActivity(intent);
     }
-
 }

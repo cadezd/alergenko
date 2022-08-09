@@ -16,24 +16,34 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alergenko.entities.User;
+import com.example.alergenko.entities.UserHelper;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.notifications.Notification;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // set's the layout
         setContentView(R.layout.register_activity);
+
+        // connection with FireBase
+        mAuth = FirebaseAuth.getInstance();
     }
 
     // DECLARATION OF COMPONENTS
@@ -66,15 +76,9 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         // CLICK LISTENERS
-        btnBack.setOnClickListener(view -> openLoginActivity());
+        btnBack.setOnClickListener(view -> openLoginActivity(null));
         btnRegister.setOnClickListener(view -> register());
 
-        if (getIntent().getStringExtra("exceptionMessage") != null) { // displays error message if it comes from verification activty
-            String tile = getStringResourceByName("exception");
-            String message = getIntent().getStringExtra("exceptionMessage");
-            Notification problemNotification = new Notification(tile, message, this);
-            problemNotification.show();
-        }
     }
 
     // ADDITIONAL METHODS
@@ -87,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // checking if entered data is valid
-        if (!isValidFirstName() || !isValidLastName() || !isValidPhoneNumber() || !isPhoneNumberDuplicate() || !isValidEmail() || !isEmailDuplicate() || !isPasswordStrong() || !isValidPassword())
+        if (!isValidFirstName() || !isValidLastName() || !isValidPhoneNumber() || isPhoneNumberDuplicate() || !isValidEmail() || isEmailDuplicate() || !isPasswordStrong() || !isValidPassword())
             return;
 
         // collecting enterd data
@@ -95,12 +99,44 @@ public class RegisterActivity extends AppCompatActivity {
         User.setLastName(txtInLastName.getText().toString().trim());
         User.setPhoneNumber("+386" + txtInPhoneNumber.getText().toString().trim());
         User.setEmail(txtInEmail.getText().toString().trim());
-        String password = txtInPsswd.getText().toString();
-        User.setPassword(hashSha1(User.getEmail() + password));
-        User.setUserId(hashSha1(User.getEmail() + password));
 
-        // opening VerificationActivty
-        openVerifivationActivity(User.getPhoneNumber());
+        String password = txtInPsswd.getText().toString();
+        String email = txtInEmail.getText().toString();
+
+        // registering user
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        UserHelper userHelper = new UserHelper(
+                                User.getFirstName(),
+                                User.getLastName(),
+                                User.getEmail(),
+                                User.getPhoneNumber()
+                        );
+
+                        // set's display name
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(User.getFirstName() + " " + User.getLastName()).build();
+                        user.updateProfile(profileUpdates);
+
+                        FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users")
+                                .child(Objects.requireNonNull(user).getUid())
+                                .setValue(userHelper).addOnCompleteListener(task1 -> {
+                                    if (task1.isSuccessful()) {
+                                        openVerificationActivity();
+                                    } else {
+                                        Notification problemNotification = new Notification(getStringResourceByName("exception"), Objects.requireNonNull(task1.getException()).getMessage(), RegisterActivity.this);
+                                        problemNotification.show();
+                                    }
+                                });
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Notification problemNotification = new Notification(getStringResourceByName("exception"), Objects.requireNonNull(task.getException()).getMessage(), RegisterActivity.this);
+                        problemNotification.show();
+                    }
+                });
     }
 
     protected boolean isValidFirstName() {
@@ -172,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected boolean isValidEmail() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        if (!txtInEmail.getText().toString().isEmpty() && txtInEmail.getText().toString().matches(regex)) {
+        if (txtInEmail.getText().toString().matches(regex)) {
             textInputLayout.setErrorEnabled(false);
             return true;
         }
@@ -275,30 +311,15 @@ public class RegisterActivity extends AppCompatActivity {
         }
     };
 
-    public static String hashSha1(String clearString) { // for hasing passwords
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-            messageDigest.update(clearString.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = messageDigest.digest();
-            StringBuilder buffer = new StringBuilder();
-            for (byte b : bytes) {
-                buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-            return buffer.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    protected void openVerifivationActivity(String phoneNumber) {
-        Intent intent = new Intent(this, VerificationActivity.class);
-        intent.putExtra("phoneNumber", phoneNumber);
+    protected void openLoginActivity(String message) {
+        User.clearFields();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("message", message);
         startActivity(intent);
     }
 
-    protected void openLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
+    protected void openVerificationActivity() {
+        Intent intent = new Intent(this, VerificationActivity.class);
         startActivity(intent);
     }
 

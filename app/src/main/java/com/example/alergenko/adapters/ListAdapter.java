@@ -76,14 +76,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
         return customFilter;
     }
 
-    class CustomFilter extends Filter {
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            ListAdapter.this.products = (ArrayList<Product>) results.values;
-            notifyDataSetChanged();
-        }
-
+    class CustomFilter extends Filter { // Filter object that performs filtering on list of products
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
@@ -93,8 +86,9 @@ public class ListAdapter extends BaseAdapter implements Filterable {
                 // performing search
                 constraint = constraint.toString().toLowerCase();
                 ArrayList<Product> filteredProducts = new ArrayList<>();
+                Product product;
                 for (int i = 0; i < ListAdapter.this.products.size(); i++) {
-                    Product product = ListAdapter.this.products.get(i);
+                    product = ListAdapter.this.products.get(i);
                     if (product.getName().toLowerCase().contains(constraint.toString())) {
                         filteredProducts.add(product);
                     }
@@ -107,6 +101,13 @@ public class ListAdapter extends BaseAdapter implements Filterable {
             }
 
             return results;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            ListAdapter.this.products = (ArrayList<Product>) results.values;
+            notifyDataSetChanged();
         }
     }
 }

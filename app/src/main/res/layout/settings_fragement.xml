@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/glTop" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnChangeEmail"
+        android:id="@+id/btnChangeData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/style_holder"
@@ -101,7 +101,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeData" />
 
     <TextView
         android:id="@+id/txtVViewSettings"
@@ -118,9 +118,26 @@
         app:layout_constraintTop_toBottomOf="@+id/btnDeleteAccount" />
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/swShowAllergens"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_holder"
+        android:checked="true"
+        android:fontFamily="@font/poppins_medium"
+        android:minHeight="48dp"
+        android:text="@string/sw_show_allergens"
+        android:textColor="@color/primary1"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/glLeft"
+        app:layout_constraintTop_toBottomOf="@+id/txtVViewSettings" />
+
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/swShowIngredients"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:background="@drawable/style_holder"
         android:checked="true"
         android:fontFamily="@font/poppins_medium"
@@ -130,23 +147,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/txtVViewSettings" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/swShowAllergens"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/style_holder"
-        android:checked="true"
-        android:fontFamily="@font/poppins_medium"
-        android:minHeight="48dp"
-        android:text="@string/sw_show_allergens"
-        android:textColor="@color/primary1"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/swShowIngredients" />
+        app:layout_constraintTop_toBottomOf="@+id/swShowAllergens" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/swShowNutritionValues"
@@ -162,7 +163,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/swShowAllergens" />
+        app:layout_constraintTop_toBottomOf="@+id/swShowIngredients" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"

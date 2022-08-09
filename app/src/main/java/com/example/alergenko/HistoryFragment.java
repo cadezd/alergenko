@@ -10,7 +10,6 @@ import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,10 +39,8 @@ public class HistoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // TODO: naredi tako da boš podatke o izdelik dobil iz PB
-
         checkConnectivity();
-
+        // set's the layout
         View contentView = inflater.inflate(R.layout.history_fragement, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
 
@@ -57,12 +54,10 @@ public class HistoryFragment extends Fragment {
         txtInProductName.addTextChangedListener(new TextWatcher() { // filters products when user searches for specific product/s
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("bala", charSequence.toString());
                 adapter.getFilter().filter(charSequence.toString().toLowerCase(Locale.ROOT).trim());
             }
 

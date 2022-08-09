@@ -9,6 +9,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,25 +21,32 @@ import com.example.alergenko.entities.Product;
 import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.notifications.Notification;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // set's the layout
         setContentView(R.layout.login_acitvity);
+
+        // connection with FireBase
+        mAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -103,43 +111,63 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // generates userId and checks if it's in database
-        String userId = hashSha1(txtInEmail.getText().toString().trim() + txtInPsswd.getText().toString());
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
-        Query userQuery = databaseReference.orderByChild("userId").equalTo(userId);
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        String email = txtInEmail.getText().toString();
+        String password = txtInPsswd.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) { // if users exists in database retrieves user data and opens MainActivty
-                    User.setUserId(userId);
-                    User.setFirstName(snapshot.child(userId).child("firstName").getValue(String.class));
-                    User.setLastName(snapshot.child(userId).child("lastName").getValue(String.class));
-                    User.setEmail(snapshot.child(userId).child("email").getValue(String.class));
-                    User.setPhoneNumber(snapshot.child(userId).child("phoneNumber").getValue(String.class));
-                    User.setPassword(snapshot.child(userId).child("password").getValue(String.class));
-
-                    ArrayList<Boolean> settings = new ArrayList<>();
-                    for (DataSnapshot snapshotSettings : snapshot.child(userId).child("settings").getChildren()) {
-                        settings.add(snapshotSettings.getValue(Boolean.class));
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    assert user != null;
+                    if (user.isEmailVerified()) {
+                        // collects user data and open MainActivity
+                        collectUserData(user);
+                        openMainActivity();
+                    } else {
+                        // notifies user that gmail address has not been verified and sends verification email
+                        Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_email_not_verified"), LoginActivity.this);
+                        problemNotification.show();
+                        clearInputFields();
                     }
-                    User.setSettings(settings);
-
-                    ArrayList<Product> history = new ArrayList<>();
-                    for (DataSnapshot snapshotSettings : snapshot.child(userId).child("history").getChildren()) {
-                        history.add(snapshotSettings.getValue(Product.class));
-                    }
-                    User.setHistory(history);
-
-                    openMainActivity();
                 } else {
+                    // notifies user about error
                     Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
                     problemNotification.show();
                     clearInputFields();
                 }
             }
+        });
+
+    }
+
+    private void collectUserData(FirebaseUser user) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
+        databaseReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e("bala", snapshot.toString());
+                if (snapshot.exists()) {
+                    User.setFirstName(snapshot.child("firstName").getValue(String.class));
+                    User.setLastName(snapshot.child("lastName").getValue(String.class));
+                    User.setPhoneNumber(snapshot.child("phoneNumber").getValue(String.class));
+                    User.setEmail(snapshot.child("email").getValue(String.class));
+
+                    ArrayList<Boolean> settings = new ArrayList<>();
+                    for (DataSnapshot dataSnapshotSettings : snapshot.child("settings").getChildren())
+                        settings.add(dataSnapshotSettings.getValue(Boolean.class));
+                    User.setSettings(settings);
+
+                    ArrayList<Product> history = new ArrayList<>();
+                    for (DataSnapshot dataSnapshotHistory : snapshot.child("history").getChildren())
+                        history.add(dataSnapshotHistory.getValue(Product.class));
+                    User.setHistory(history);
+                }
+            }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { // handling database errors
+            public void onCancelled(@NonNull DatabaseError error) {
+                // notifies user about error
                 Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), LoginActivity.this);
                 problemNotification.show();
                 clearInputFields();
@@ -151,22 +179,6 @@ public class LoginActivity extends AppCompatActivity {
         String packageName = getPackageName();
         int resId = getResources().getIdentifier(aString, "string", packageName);
         return getString(resId);
-    }
-
-    public static String hashSha1(String clearString) { // for hasing passwords
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-            messageDigest.update(clearString.getBytes(StandardCharsets.UTF_8));
-            byte[] bytes = messageDigest.digest();
-            StringBuilder buffer = new StringBuilder();
-            for (byte b : bytes) {
-                buffer.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
-            }
-            return buffer.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     // Method to check network connectivity in Main Activity

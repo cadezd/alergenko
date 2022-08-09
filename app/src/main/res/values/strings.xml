@@ -18,10 +18,16 @@
 
     <!--Verification activity-->
     <string name="title_verification">Verifikacija</string>
-    <string name="txtv_instruction_1">Prek sms-a smo vam poslali 6-mestno kodo za preverjanje vaše mobilne številke.</string>
-    <string name="txtv_instruction_2">Tukaj vnesite vašo kodo.</string>
-    <string name="txtv_resend"><font color="#1E263C">Niste prejeli kode? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
+    <string name="txtv_instruction_1">Preverjanje vašega e-poštnega naslova</string>
+    <string name="txtv_instruction_2">Na Vaš e-poštni naslov smo poslali povezavo s katero potrdite Vaš e-poštni naslov.</string>
 
+    <string name="txtv_resend"><font color="#1E263C">Niste prejeli e-pošte? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
+
+
+    <!--Reset passowrd activty-->
+    <string name="title_reset_password">Ponastavitev gesla</string>
+    <string name="txtv_instruction_3">Ali ste pozabili geslo?</string>
+    <string name="txtv_instruction_4">Potrebujemo vašo e-pošto, da vam pošljemo e-poštno sporočilo za ponastavitev gesla.</string>
 
     <!--Product info activity-->
     <string name="title_product_info">Informacije o izdelku</string>
@@ -38,7 +44,6 @@
     <string name="sw_show_ingredinets">Prikaži sestavine</string>
     <string name="sw_show_nutrition_values">Prikaži hranilne vrednosti</string>
     <string name="sw_show_allergens">Prikaži alergene</string>
-    <string name="btn_log_out">Odjava</string>
 
 
     <!--Scan fragment-->
@@ -60,18 +65,19 @@
     <string name="txtv_allergens_title">Alergeni:</string>
     <string name="txtv_ingredients_title">Sestavine:</string>
     <string name="txtv_nutrition_values_title">Hranilne vrednosti:</string>
-    <string name="txtv_nutrition_values_per_100">Hranilne vrednosti na 100g</string>
-
 
 
     <!--Button hints -->
     <string name="btn_login">Prijava</string>
     <string name="btn_register">Registracija</string>
     <string name="btn_send">Pošlji</string>
+    <string name="btn_open_login_activty">Nazaj na prijavno okno</string>
     <string name="btn_update_info">Spremenite podatke računa</string>
     <string name="btn_delete_account">Izbrišite račun</string>
     <string name="btn_close">Zapri okno</string>
     <string name="btn_update">Posodobi</string>
+    <string name="btn_log_out">Odjava</string>
+    <string name="btn_send_password_reset_gmail">Pošlji e-poštno sporočilo</string>
 
     <!--Input hints-->
     <string name="input_email_hint">Vnesite vaš e-poštni naslov</string>
@@ -98,11 +104,12 @@
     <string name="exception_bad_verification_code">Napačna verifikacijska koda.</string>
     <string name="exception_username_password">Napačen e-poštni naslov ali geslo.</string>
     <string name="exception_firebase">Prišlo je do omrežne napake (kot je časovna omejitev ali prekinjena povezava).</string>
+    <string name="exception_email_not_verified">Vaš e-poštni naslov še ni preverjen.</string>
 
     <!--Notification strings-->
     <string name="notification">Obvestilo</string>
     <string name="notification_registration_success">Uspešna registracija.</string>
-
+    <string name="notification_account_deleted">Uporabniški račun je bil uspešno izbrisan.</string>
 
 
 

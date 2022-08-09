@@ -142,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/style_holder"
+                android:baselineAligned="false"
                 android:divider="@color/lightText"
                 android:showDividers="none"
                 android:stretchColumns="*" />

@@ -4,23 +4,13 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static String userId;
     private static String firstName;
     private static String lastName;
     private static String email;
     private static String phoneNumber;
-    private static String password;
     private static ArrayList<Boolean> settings = new ArrayList<>();
-    private static ArrayList<Product> history = new ArrayList<>();
+    private static ArrayList<Product> history = new ArrayList<>(0);
 
-
-    public static String getUserId() {
-        return userId;
-    }
-
-    public static void setUserId(String userId) {
-        User.userId = userId;
-    }
 
     public static String getFirstName() {
         return firstName;
@@ -54,14 +44,6 @@ public class User {
         User.phoneNumber = phoneNumber;
     }
 
-    public static String getPassword() {
-        return password;
-    }
-
-    public static void setPassword(String password) {
-        User.password = password;
-    }
-
     public static ArrayList<Boolean> getSettings() {
         return settings;
     }
@@ -83,16 +65,14 @@ public class User {
     }
 
     public static void clearFields() {
-        userId = null;
         firstName = null;
         lastName = null;
         email = null;
         phoneNumber = null;
-        password = null;
         settings = new ArrayList<>();
         settings.add(Boolean.TRUE);
         settings.add(Boolean.TRUE);
         settings.add(Boolean.TRUE);
-        history = null;
+        history = new ArrayList<>(0);
     }
 }
