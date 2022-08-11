@@ -125,13 +125,13 @@
         android:fontFamily="@font/poppins_medium"
         android:text="@string/txtv_resend"
         android:textColor="#DD2C00"
-        app:layout_constraintBottom_toTopOf="@+id/btnOpenLoginActivity"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendEmail"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/glLeft" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnOpenLoginActivity"
+        android:id="@+id/btnSendEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"

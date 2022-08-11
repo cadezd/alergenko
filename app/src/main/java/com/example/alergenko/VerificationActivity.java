@@ -40,7 +40,7 @@ public class VerificationActivity extends AppCompatActivity {
 
         // INICIALIZATION OF COMPONENTS
         btnBack = findViewById(R.id.btnBack);
-        btnOpenLoginActivity = findViewById(R.id.btnOpenLoginActivity);
+        btnOpenLoginActivity = findViewById(R.id.btnSendEmail);
         txtVResend = findViewById(R.id.txtVResend);
 
         // CLICK LISTENERS

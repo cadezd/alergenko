@@ -23,7 +23,7 @@ import com.example.alergenko.entities.Product;
 import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.GetImage;
 import com.example.alergenko.networking.NetworkConfig;
-import com.example.alergenko.networking.OnGetDataListener;
+import com.example.alergenko.networking.OnGetProductListener;
 import com.example.alergenko.notifications.Notification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,7 +86,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             displayProductData(product);
         } else {    // searches for product in database
             DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("products");
-            readDataFromDatabse(databaseReference.child(barcode), new OnGetDataListener() {
+            readDataFromDatabse(databaseReference.child(barcode), new OnGetProductListener() {
                 @Override
                 public void onSuccess(Product dataSnapshotValue) {
                     clearLoadingScreen();
@@ -105,7 +105,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         databaseReference.child(user.getUid()).child("history").child(product.getBarcode()).setValue(product);
     }
 
-    public void readDataFromDatabse(DatabaseReference ref, final OnGetDataListener listener) {
+    public void readDataFromDatabse(DatabaseReference ref, final OnGetProductListener listener) {
         showLoadingScreen();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

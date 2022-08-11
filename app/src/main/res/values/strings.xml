@@ -28,6 +28,7 @@
     <string name="title_reset_password">Ponastavitev gesla</string>
     <string name="txtv_instruction_3">Ali ste pozabili geslo?</string>
     <string name="txtv_instruction_4">Potrebujemo vašo e-pošto, da vam pošljemo e-poštno sporočilo za ponastavitev gesla.</string>
+    <string name="notification_reset_password_email_send">Na vaš e-poštni naslov smo poslali sporočilo za ponastavitev gesla (preverite tudi VSILJENO POŠTO).</string>
 
     <!--Product info activity-->
     <string name="title_product_info">Informacije o izdelku</string>
@@ -99,6 +100,7 @@
 
     <!--Exception strings-->
     <string name="exception">Napaka</string>
+    <string name="exception_general">Prišlo je do napake, poskusite ponovno.</string>
     <string name="no_internet_connection">Nimate vzpostavljene internetne povezave.</string>
     <string name="exception_verification">Tekom verifikacije je prišlo do napake:</string>
     <string name="exception_bad_verification_code">Napačna verifikacijska koda.</string>

@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtVRegister;
     EditText txtInEmail;
     EditText txtInPsswd;
+    TextView txtVForgotPsswd;
 
     // for checking internet connection
     boolean isConnected;
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         txtVRegister = findViewById(R.id.txtVRegister);
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPsswd = findViewById(R.id.txtInPsswd);
+        txtVForgotPsswd = findViewById(R.id.txtVForgotPsswd);
 
         txtInEmail.setText("david.cadez89@gmail.com");
         txtInEmail.clearFocus();
@@ -81,8 +83,10 @@ public class LoginActivity extends AppCompatActivity {
         // CLICK LISTENERS
         // login user
         btnLogin.setOnClickListener(view -> login());
-        // opens register activty
+        // opens RegisterActivty
         txtVRegister.setOnClickListener(view -> openRegisterActivity());
+        // opens ResetPasswordActivty
+        txtVForgotPsswd.setOnClickListener(view -> openResetPasswordActivty());
 
         if (getIntent().getStringExtra("message") != null) { // displays error message if it comes from verification activty
             String tile = getStringResourceByName("notification");
@@ -93,6 +97,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // ADDITIONAL METHODS
+    private void openResetPasswordActivty(){
+        Intent intent = new Intent(this, ResetPasswordActivty.class);
+        startActivity(intent);
+    }
+
     private void openRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
