@@ -68,7 +68,8 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void sendVerificationEmail() {
         User.clearFields();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth.setLanguageCode("sl");
+        FirebaseUser user = mAuth.getCurrentUser();
         assert user != null;
         user.sendEmailVerification();
     }

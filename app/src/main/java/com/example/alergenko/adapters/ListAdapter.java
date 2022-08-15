@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.example.alergenko.R;
 import com.example.alergenko.entities.Product;
+import com.example.alergenko.entities.User;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class ListAdapter extends BaseAdapter implements Filterable {
             convertView = LayoutInflater.from(context).inflate(R.layout.product_card, parent, false);
         }
 
-        // INICIALIZATION OF COMPONENTS
+        // DECLARATION AND INICIALIZATION OF COMPONENTS
         ImageView imgVProductImg = convertView.findViewById(R.id.imgVProductImg);
         TextView txtVProductName = convertView.findViewById(R.id.txtVProductName);
 
@@ -65,6 +66,10 @@ public class ListAdapter extends BaseAdapter implements Filterable {
     @Override
     public long getItemId(int i) {
         return 0;
+    }
+
+    public ArrayList<Product> getProducts(){
+        return this.products;
     }
 
     @Override

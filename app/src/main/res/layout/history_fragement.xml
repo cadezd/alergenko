@@ -54,7 +54,7 @@
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextSearch"
+        android:id="@+id/editTextTextFirstName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,16 +70,21 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/txtVHistory"
-        app:startIconDrawable="@drawable/ic_search">
+        app:startIconDrawable="@drawable/ic_search"
+        app:boxStrokeColor="@color/primary1"
+        app:hintTextColor="@color/primary1"
+        android:textColorHint="@color/lightText"
+        app:startIconTint="@color/lightText"
+        app:endIconTint="@color/lightText">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInProductName"
+            android:id="@+id/txtInFirstName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_search_hint"
             android:inputType="text"
-            android:textColor="@color/lightText"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 

@@ -48,9 +48,9 @@ public class HistoryFragment extends Fragment {
         listView.setAdapter(adapter);
         // opens ProductInfoActivity when user clicks on one element in the list view if it has connection
         listView.setClickable(true);
-        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(User.getHistory(), position));
+        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(adapter.getProducts(), position));
 
-        txtInProductName = contentView.findViewById(R.id.txtInProductName);
+        txtInProductName = contentView.findViewById(R.id.txtInFirstName);
         txtInProductName.addTextChangedListener(new TextWatcher() { // filters products when user searches for specific product/s
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

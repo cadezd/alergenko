@@ -88,12 +88,19 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/txtVGreeting2"
-        app:startIconDrawable="@drawable/ic_email_grey">
+        app:startIconDrawable="@drawable/ic_email_grey"
+        app:boxStrokeColor="@color/primary1"
+        app:hintTextColor="@color/primary1"
+        android:textColorHint="@color/lightText"
+        app:startIconTint="@color/lightText"
+        app:endIconTint="@color/lightText"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_email_hint"
             android:inputType="textEmailAddress"
@@ -118,12 +125,19 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
-        app:startIconDrawable="@drawable/ic_lock_grey">
+        app:startIconDrawable="@drawable/ic_lock_grey"
+        app:boxStrokeColor="@color/primary1"
+        app:hintTextColor="@color/primary1"
+        android:textColorHint="@color/lightText"
+        app:startIconTint="@color/lightText"
+        app:endIconTint="@color/lightText"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInPsswd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_psswd_hint"
             android:inputType="textPassword"

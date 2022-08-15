@@ -65,7 +65,7 @@
         tools:ignore="ImageContrastCheck" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextSearch"
+        android:id="@+id/editTextTextFirstName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -80,18 +80,24 @@
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/imgVLine"
-        app:startIconDrawable="@drawable/ic_person_grey">
+        app:startIconDrawable="@drawable/ic_person_grey"
+        app:boxStrokeColor="@color/primary1"
+        app:hintTextColor="@color/primary1"
+        android:textColorHint="@color/lightText"
+        app:startIconTint="@color/lightText"
+        app:endIconTint="@color/lightText">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInProductName"
+            android:id="@+id/txtInFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_name_hint_short"
             android:inputType="text"
-            android:text="David"
             android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+            tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
+            tools:maxLength="30" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,82 +116,23 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextSearch"
-        app:startIconDrawable="@drawable/ic_person_grey">
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextFirstName"
+        app:startIconDrawable="@drawable/ic_person_grey"
+        app:boxStrokeColor="@color/primary1"
+        app:hintTextColor="@color/primary1"
+        android:textColorHint="@color/lightText"
+        app:startIconTint="@color/lightText"
+        app:endIconTint="@color/lightText">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtInLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_surname_hint_short"
             android:inputType="text"
-            android:text="Čadež"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextEmailAddress"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextLastName"
-        app:startIconDrawable="@drawable/ic_email_grey">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_email_hint_short"
-            android:inputType="textEmailAddress"
-            android:text="david.cadez89@gmail.com"
-            android:textSize="15sp"
-            tools:ignore="TouchTargetSizeCheck,TextContrastCheck,DuplicateSpeakableTextCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPhoneNumber"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:inputType="phone"
-        app:boxCornerRadiusBottomEnd="10dp"
-        app:boxCornerRadiusBottomStart="10dp"
-        app:boxCornerRadiusTopEnd="10dp"
-        app:boxCornerRadiusTopStart="10dp"
-        app:counterMaxLength="8"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glRight"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
-        app:prefixText="@string/county_code"
-        app:prefixTextColor="@color/primary1"
-        app:startIconDrawable="@drawable/ic_phone_grey">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="@string/input_phone_hint_short"
-            android:inputType="phone"
-            android:maxLength="8"
-            android:text="31290128"
+            android:maxLength="30"
             android:textSize="15sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
@@ -193,7 +140,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
+        android:id="@+id/btnUpdate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/style_button"

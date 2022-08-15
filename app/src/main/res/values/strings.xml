@@ -107,12 +107,11 @@
     <string name="exception_username_password">Napačen e-poštni naslov ali geslo.</string>
     <string name="exception_firebase">Prišlo je do omrežne napake (kot je časovna omejitev ali prekinjena povezava).</string>
     <string name="exception_email_not_verified">Vaš e-poštni naslov še ni preverjen.</string>
+    <string name="exception_data_update">Pri spremebi podatkov je prišlo do napake.</string>
 
     <!--Notification strings-->
     <string name="notification">Obvestilo</string>
     <string name="notification_registration_success">Uspešna registracija.</string>
     <string name="notification_account_deleted">Uporabniški račun je bil uspešno izbrisan.</string>
-
-
-
+    <string name="notification_data_updated">Podatki so bili uspešno posodobljeni.</string>
 </resources>

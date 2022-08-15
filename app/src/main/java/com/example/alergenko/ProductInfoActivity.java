@@ -2,6 +2,7 @@ package com.example.alergenko;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -167,7 +168,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             txtVIngredients.setVisibility(View.VISIBLE);
             txtVIngredients.setText(product.getIngredients());
         }
-        if (User.getSettings().get(2)) { // Displays nutrition values if user wants to see it
+        if (User.getSettings().get(2) && product.getNutritionValues() != null) { // Displays nutrition values if user wants to see it and product has
             txtVTitleNutritionValues.setVisibility(View.VISIBLE);
             tblLyNutritionValues.setVisibility(View.VISIBLE);
             String[] rows = product.getNutritionValues().split("\\$");
@@ -191,17 +192,19 @@ public class ProductInfoActivity extends AppCompatActivity {
         }
 
         TableRow tableRow = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
         tableRow.setLayoutParams(lp);
 
-        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams lp1 = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT);
 
         TextView txtVNutrient = new TextView(this); // nutrient column
         txtVNutrient.setLayoutParams(lp1);
+        txtVNutrient.setTextColor(Color.BLACK);
         txtVNutrient.setPadding(25, 3, 0, 3);
         txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_medium));
-        if (nutrient.contains("—")) // indent
-            nutrient = "  " + nutrient;
+        if (nutrient.contains("—")) { // indent
+            txtVNutrient.setPadding(45, 3, 0, 3);
+        }
         if (index == 0) {
             txtVNutrient.setTextSize(16);
             txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
@@ -211,6 +214,7 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         TextView txtVQuantityUnit = new TextView(this); // quantity and unit column
         txtVQuantityUnit.setLayoutParams(lp1);
+        txtVQuantityUnit.setTextColor(Color.BLACK);
         txtVQuantityUnit.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         txtVQuantityUnit.setPadding(0, 3, 25, 3);
         txtVQuantityUnit.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_medium));

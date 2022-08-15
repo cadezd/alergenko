@@ -67,13 +67,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         // INICIALIZATION OF COMPONENTS
         btnBack = findViewById(R.id.btnBack);
-        txtInFirstName = findViewById(R.id.txtInProductName);
+        txtInFirstName = findViewById(R.id.txtInFirstName);
         txtInLastName = findViewById(R.id.txtInLastName);
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPhoneNumber = findViewById(R.id.txtInPhoneNumber);
         txtInPsswd = findViewById(R.id.txtInPsswd);
         txtInPsswdConfirm = findViewById(R.id.txtInPsswdConfirm);
-        btnRegister = findViewById(R.id.btnRegister);
+        btnRegister = findViewById(R.id.btnUpdate);
 
         // CLICK LISTENERS
         btnBack.setOnClickListener(view -> openLoginActivity(null));
@@ -115,10 +115,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 User.getPhoneNumber()
                         );
 
-                        // set's display name
+                        // sets display name
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(User.getFirstName() + " " + User.getLastName()).build();
+                                .setDisplayName(User.getFirstName() + " " + User.getLastName())
+                                .build();
                         user.updateProfile(profileUpdates);
 
                         FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users")
@@ -173,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         txtInPhoneNumber.getText().clear();
         txtInPhoneNumber.requestFocus();
-        textInputLayout.setError("Potrebno je vnesti vašo telefonsko številko" + txtInPhoneNumber.getText().toString());
+        textInputLayout.setError("Potrebno je vnesti vašo telefonsko številko");
         return false;
     }
 

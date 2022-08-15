@@ -74,12 +74,6 @@ public class LoginActivity extends AppCompatActivity {
         txtInPsswd = findViewById(R.id.txtInPsswd);
         txtVForgotPsswd = findViewById(R.id.txtVForgotPsswd);
 
-        txtInEmail.setText("david.cadez89@gmail.com");
-        txtInEmail.clearFocus();
-        txtInPsswd.setText("David123cadez_");
-        txtInPsswd.clearFocus();
-
-
         // CLICK LISTENERS
         // login user
         btnLogin.setOnClickListener(view -> login());
@@ -88,9 +82,11 @@ public class LoginActivity extends AppCompatActivity {
         // opens ResetPasswordActivty
         txtVForgotPsswd.setOnClickListener(view -> openResetPasswordActivty());
 
-        if (getIntent().getStringExtra("message") != null) { // displays error message if it comes from verification activty
+        // displays a message from intent
+        if (getIntent().getStringExtra("message") != null) {
             String tile = getStringResourceByName("notification");
             String message = getIntent().getStringExtra("message");
+            getIntent().removeExtra("message");
             Notification problemNotification = new Notification(tile, message, this);
             problemNotification.show();
         }

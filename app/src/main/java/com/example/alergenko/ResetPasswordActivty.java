@@ -53,8 +53,6 @@ public class ResetPasswordActivty extends AppCompatActivity {
         txtInEmail = findViewById(R.id.txtInEmail);
         btnBack = findViewById(R.id.btnBack);
 
-        txtInEmail.setText("david.cadez89@gmail.com");
-
         // CLICK LISTENERS
         btnSendEmail.setOnClickListener(view -> sendPassowrdResetEmail());
         btnBack.setOnClickListener(view -> openLoginActivty(null));
@@ -62,6 +60,7 @@ public class ResetPasswordActivty extends AppCompatActivity {
 
     private void sendPassowrdResetEmail() {
         if (!isConnected) {  // notifies user that there is no internet connection
+            txtInEmail.setText("");
             Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("no_internet_connection"), ResetPasswordActivty.this);
             problemNotification.show();
             return;
@@ -69,10 +68,12 @@ public class ResetPasswordActivty extends AppCompatActivity {
 
         String email = txtInEmail.getText().toString();
         if (!isValidEmail(email)) return; // checks if enterd email is vaild
+        mAuth.setLanguageCode("sl");
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> { // sends password reset email and opens LoginActivty with a message
             if (task.isSuccessful()) {
                 openLoginActivty(getStringResourceByName("notification_reset_password_email_send"));
             } else {
+                txtInEmail.setText("");
                 Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_general"), ResetPasswordActivty.this);
                 problemNotification.show();
             }
@@ -88,6 +89,7 @@ public class ResetPasswordActivty extends AppCompatActivity {
         }
         txtInEmail.getText().clear();
         txtInEmail.requestFocus();
+        txtInEmail.setText("");
         textInputLayout.setError("Potrebno je vnesti vaš e-poštni naslov");
         return false;
     }

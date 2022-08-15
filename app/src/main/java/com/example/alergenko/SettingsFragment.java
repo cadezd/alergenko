@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.NetworkConfig;
+import com.example.alergenko.notifications.Notification;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -76,6 +77,15 @@ public class SettingsFragment extends Fragment {
             else
                 User.getSettings().set(2, Boolean.FALSE);
         });
+
+        // displays a message from intent
+        if (getActivity().getIntent().getStringExtra("message") != null) {
+            String tile = getStringResourceByName("notification");
+            String message = getActivity().getIntent().getStringExtra("message");
+            getActivity().getIntent().removeExtra("message");
+            Notification problemNotification = new Notification(tile, message, getContext());
+            problemNotification.show();
+        }
 
         return contentView;
     }
