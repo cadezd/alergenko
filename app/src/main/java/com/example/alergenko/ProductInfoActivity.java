@@ -113,8 +113,10 @@ public class ProductInfoActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot snapshot) {
                 // This is how you use the value once it is loaded! Make sure to pass the
                 // value of the DataSnapshot object, not the object itself
-                //TODO: dodaj da ce j enull da prikaze da izdelka ni mogoče dobiti
-                listener.onSuccess(snapshot.getValue(Product.class));
+                if (snapshot.getValue(Product.class) == null) // if it doesnt get the product it opeens ProductNotFoundActivty
+                    openProductNotFoundActivty();
+                else
+                    listener.onSuccess(snapshot.getValue(Product.class)); // else it passes product data to display
             }
 
             @Override
@@ -243,6 +245,11 @@ public class ProductInfoActivity extends AppCompatActivity {
     private void openMainActivity(int fragmentToOpen) {
         Intent intent = new Intent(ProductInfoActivity.this, MainActivity.class);
         intent.putExtra("fragmentToOpen", fragmentToOpen);
+        startActivity(intent);
+    }
+
+    private void openProductNotFoundActivty() {
+        Intent intent = new Intent(ProductInfoActivity.this, ProductNotFoundActivty.class);
         startActivity(intent);
     }
 }

@@ -98,10 +98,10 @@ public class RegisterActivity extends AppCompatActivity {
         User.setFirstName(txtInFirstName.getText().toString().trim());
         User.setLastName(txtInLastName.getText().toString().trim());
         User.setPhoneNumber("+386" + txtInPhoneNumber.getText().toString().trim());
-        User.setEmail(txtInEmail.getText().toString().trim());
+        User.setEmail(txtInEmail.getText().toString().trim().toLowerCase());
 
         String password = txtInPsswd.getText().toString();
-        String email = txtInEmail.getText().toString();
+        String email = txtInEmail.getText().toString().toLowerCase();
 
         // registering user
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -209,7 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected boolean isValidEmail() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        if (txtInEmail.getText().toString().matches(regex)) {
+        if (txtInEmail.getText().toString().trim().toLowerCase().matches(regex)) {
             textInputLayout.setErrorEnabled(false);
             return true;
         }
@@ -223,7 +223,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         final boolean[] isEmailDuplicate = {false};
         DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
-        ref.orderByChild("email").equalTo(txtInEmail.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.orderByChild("email").equalTo(txtInEmail.getText().toString().trim().toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // checks if email already exists in database
                 if (dataSnapshot.exists()) {

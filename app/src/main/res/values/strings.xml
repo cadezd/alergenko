@@ -34,9 +34,12 @@
     <string name="title_product_info">Informacije o izdelku</string>
     <string name="product_does_not_contain_allergens">Izdelek ne vsebuje alergenov.</string>
 
+    <!--Product not found activity-->
+    <string name="title_product_not_found">Neznan izdelek</string>
+    <string name="txtv_product_not_found">Nekaj je šlo narobe, poskusite ponovno pozneje.</string>
+
     <!--Edit info activity-->
     <string name="title_edit_info">Podatki o računu</string>
-
 
     <!--Settings fragment-->
     <string name="title_settings">Nastavitve</string>
@@ -46,27 +49,22 @@
     <string name="sw_show_nutrition_values">Prikaži hranilne vrednosti</string>
     <string name="sw_show_allergens">Prikaži alergene</string>
 
-
     <!--Scan fragment-->
     <string name="title_scan">Skeniranje</string>
     <string name="status_text">Postavite črtno kodo v okvir, da jo skenirate.</string>
 
-
     <!--Hisotry fragment-->
     <string name="title_history">Zgodovina</string>
-
 
     <!--Menu / nav bar strings-->
     <string name="nav_settings">Nastavitve</string>
     <string name="nav_scan">Skeniranje</string>
     <string name="nav_history">Zgodovina</string>
 
-
     <!--Product card-->
     <string name="txtv_allergens_title">Alergeni:</string>
     <string name="txtv_ingredients_title">Sestavine:</string>
     <string name="txtv_nutrition_values_title">Hranilne vrednosti:</string>
-
 
     <!--Button hints -->
     <string name="btn_login">Prijava</string>

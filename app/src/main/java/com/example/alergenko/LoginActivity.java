@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String email = txtInEmail.getText().toString();
+        String email = txtInEmail.getText().toString().trim().toLowerCase();
         String password = txtInPsswd.getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
