@@ -5,11 +5,7 @@
     <string name="greeting1">Dobrodošli nazaj... !</string>
     <string name="greeting2">Prijavite se v svoj račun</string>
     <string name="txtv_forgot_password">Pozabljeno geslo?</string>
-    <string name="txtv_register">
-        <font color="#1E263C">Nimate še računa?</font>
-        <font color="#EC6745"><b>Registracija</b></font>
-    </string>
-
+    <string name="txtv_register"><font color="#1E263C">Nimate še računa?</font><font color="#EC6745"><b>Registracija</b></font></string>
 
     <!--Register activity-->
     <string name="title_register">Registracija</string>

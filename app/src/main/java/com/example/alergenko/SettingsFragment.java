@@ -1,6 +1,8 @@
 package com.example.alergenko;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +35,9 @@ public class SettingsFragment extends Fragment {
     Button btnLogOut;
 
     ArrayList<Boolean> originalSettings = new ArrayList<>();
+
+    // for automatic login
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Nullable
     @Override
@@ -107,12 +112,23 @@ public class SettingsFragment extends Fragment {
         // deletes user extra data from Firebase
         DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
         databaseReference.child(user.getUid()).removeValue();
-
+        // clear fields for automatic login
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", null);
+        editor.putString("password", null);
+        editor.apply();
         openLoginActivity(getStringResourceByName("notification_account_deleted"));
     }
 
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
+        // clear fields for automatic login
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("email", null);
+        editor.putString("password", null);
+        editor.apply();
         openLoginActivity(null);
     }
 

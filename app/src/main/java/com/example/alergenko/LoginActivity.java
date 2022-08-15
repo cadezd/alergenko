@@ -3,6 +3,7 @@ package com.example.alergenko;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
@@ -10,8 +11,11 @@ import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,33 +41,31 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // set's the layout
-        setContentView(R.layout.login_acitvity);
-
-        // connection with FireBase
-        mAuth = FirebaseAuth.getInstance();
-    }
-
-
     // DECLARATION OF COMPONENTS
     Button btnLogin;
     TextView txtVRegister;
     EditText txtInEmail;
     EditText txtInPsswd;
     TextView txtVForgotPsswd;
+    ProgressBar progressBar2;
+    ImageView imageView;
+    TextView txtVGreeting1;
+    TextView txtVGreeting2;
+
+
+    FirebaseAuth mAuth;
 
     // for checking internet connection
     boolean isConnected;
 
-    @SuppressLint("SetTextI18n")
+    // for automatic login
+    public static final String SHARED_PREFS = "sharedPrefs";
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // set's the layout
+        setContentView(R.layout.login_acitvity);
 
         checkConnectivity();
 
@@ -73,6 +75,24 @@ public class LoginActivity extends AppCompatActivity {
         txtInEmail = findViewById(R.id.txtInEmail);
         txtInPsswd = findViewById(R.id.txtInPsswd);
         txtVForgotPsswd = findViewById(R.id.txtVForgotPsswd);
+        progressBar2 = findViewById(R.id.progressBar2);
+        progressBar2.setVisibility(View.GONE);
+        imageView = findViewById(R.id.imageView);
+        txtVGreeting1 = findViewById(R.id.txtVGreeting1);
+        txtVGreeting2 = findViewById(R.id.txtVGreeting2);
+
+        // connection with FireBase
+        mAuth = FirebaseAuth.getInstance();
+
+        // automatic login
+        automaticLogin();
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         // CLICK LISTENERS
         // login user
@@ -93,19 +113,39 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // ADDITIONAL METHODS
-    private void openResetPasswordActivty(){
-        Intent intent = new Intent(this, ResetPasswordActivty.class);
-        startActivity(intent);
-    }
+    private void automaticLogin() {
+        if (!isConnected) // checks for the internet connection
+            return;
 
-    private void openRegisterActivity() {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-    private void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        showLoadingScreen();
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String email = sharedPreferences.getString("email", null);
+        String password = sharedPreferences.getString("password", null);
+        txtInEmail.setText(email);
+        txtInPsswd.setText(password);
+        if (email != null && password != null) {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        assert user != null;
+                        // collects user data and open MainActivity
+                        collectUserData(user);
+                        openMainActivity();
+                        finish();
+                    } else {
+                        // notifies user about error
+                        clearLoadingScreen();
+                        Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
+                        problemNotification.show();
+                        clearInputFields();
+                    }
+                }
+            });
+        } else {
+            clearLoadingScreen();
+        }
     }
 
     private void login() {
@@ -115,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
             clearInputFields();
             return;
         }
-
         String email = txtInEmail.getText().toString().trim().toLowerCase();
         String password = txtInPsswd.getText().toString();
 
@@ -126,6 +165,13 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     assert user != null;
                     if (user.isEmailVerified()) {
+                        // remebers users email and password for automatic login
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", email);
+                        editor.putString("password", password);
+                        editor.apply();
+
                         // collects user data and open MainActivity
                         collectUserData(user);
                         openMainActivity();
@@ -143,7 +189,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void collectUserData(FirebaseUser user) {
@@ -151,7 +196,6 @@ public class LoginActivity extends AppCompatActivity {
         databaseReference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.e("bala", snapshot.toString());
                 if (snapshot.exists()) {
                     User.setFirstName(snapshot.child("firstName").getValue(String.class));
                     User.setLastName(snapshot.child("lastName").getValue(String.class));
@@ -219,10 +263,37 @@ public class LoginActivity extends AppCompatActivity {
         }
     };
 
-    public void clearInputFields() {
+    private void clearInputFields() {
         txtInEmail.setText("");
         txtInEmail.clearFocus();
         txtInPsswd.setText("");
         txtInPsswd.clearFocus();
     }
+
+    private void showLoadingScreen(){
+        progressBar2.setVisibility(View.VISIBLE);
+    }
+
+    private void clearLoadingScreen(){
+        progressBar2.setVisibility(View.GONE);
+    }
+
+    private void openResetPasswordActivty() {
+        Intent intent = new Intent(this, ResetPasswordActivty.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openRegisterActivity() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
