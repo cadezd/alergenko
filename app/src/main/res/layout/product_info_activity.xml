@@ -48,7 +48,7 @@
         android:fontFamily="@font/poppins_bold"
         android:text="@string/title_product_info"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
@@ -85,12 +85,12 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="Ime izdelka"
                 android:textColor="@color/primary1"
-                android:textSize="20sp" />
+                android:textSize="@dimen/_15sdp" />
 
             <ImageView
                 android:id="@+id/imgVProductImg"
                 android:layout_width="match_parent"
-                android:layout_height="175dp"
+                android:layout_height="@dimen/_120sdp"
                 android:contentDescription="@string/product_img"
                 app:srcCompat="@drawable/ic_image_not_supported" />
 
@@ -102,7 +102,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/txtv_allergens_title"
                 android:textColor="@color/primary1"
-                android:textSize="18sp" />
+                android:textSize="@dimen/_14sdp" />
 
             <TextView
                 android:id="@+id/txtVAllergens"
@@ -120,7 +120,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/txtv_ingredients_title"
                 android:textColor="@color/primary1"
-                android:textSize="18sp" />
+                android:textSize="@dimen/_14sdp" />
 
             <TextView
                 android:id="@+id/txtVIngredients"
@@ -137,7 +137,7 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="@string/txtv_nutrition_values_title"
                 android:textColor="@color/primary1"
-                android:textSize="18sp" />
+                android:textSize="@dimen/_14sdp" />
 
             <TableLayout
                 android:id="@+id/tblLyNutritionValues"
@@ -162,7 +162,7 @@
         android:text="@string/btn_close"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toTopOf="@+id/glBottom"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft" />

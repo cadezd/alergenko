@@ -55,7 +55,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_70sdp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/logo_description"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
@@ -67,7 +67,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnClose"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_38sdp"
         android:background="@drawable/style_button"
         android:fontFamily="@font/poppins_medium"
         android:letterSpacing="0.13"
@@ -81,8 +81,8 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="288dp"
-        android:layout_height="362dp"
+        android:layout_width="@dimen/_260sdp"
+        android:layout_height="@dimen/_270sdp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"

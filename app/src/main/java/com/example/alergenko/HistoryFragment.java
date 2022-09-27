@@ -50,7 +50,7 @@ public class HistoryFragment extends Fragment {
         listView.setClickable(true);
         listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(adapter.getProducts(), position));
 
-        txtInProductName = contentView.findViewById(R.id.txtInFirstName);
+        txtInProductName = contentView.findViewById(R.id.txtInProductName);
         txtInProductName.addTextChangedListener(new TextWatcher() { // filters products when user searches for specific product/s
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

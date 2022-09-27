@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -26,7 +26,7 @@
             app:srcCompat="@drawable/pic_bananas" />
 
         <LinearLayout
-            android:layout_width="265dp"
+            android:layout_width="@dimen/_225sdp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -34,12 +34,12 @@
                 android:id="@+id/txtVProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginBottom="@dimen/_14sdp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Brownies"
+                android:text="Bananas"
                 android:textColor="@color/primary1"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_13sdp" />
 
         </LinearLayout>
     </LinearLayout>

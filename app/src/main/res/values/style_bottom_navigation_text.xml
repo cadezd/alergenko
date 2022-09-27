@@ -3,5 +3,6 @@
     <style name="bottomaNavigationText">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
     </style>
 </resources>

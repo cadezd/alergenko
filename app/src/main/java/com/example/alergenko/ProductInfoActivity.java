@@ -3,8 +3,6 @@ package com.example.alergenko;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,12 +15,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.example.alergenko.entities.Product;
 import com.example.alergenko.entities.User;
-import com.example.alergenko.networking.GetImage;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.networking.OnGetProductListener;
 import com.example.alergenko.notifications.Notification;
@@ -87,14 +83,11 @@ public class ProductInfoActivity extends AppCompatActivity {
             displayProductData(product);
         } else {    // searches for product in database
             DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("products");
-            readDataFromDatabse(databaseReference.child(barcode), new OnGetProductListener() {
-                @Override
-                public void onSuccess(Product dataSnapshotValue) {
-                    clearLoadingScreen();
-                    User.addProductToUserHistory(dataSnapshotValue);
-                    addProductToUserHistoryOnFirebase(dataSnapshotValue);
-                    displayProductData(dataSnapshotValue);
-                }
+            readDataFromDatabse(databaseReference.child(barcode), dataSnapshotValue -> {
+                clearLoadingScreen();
+                User.addProductToUserHistory(dataSnapshotValue);
+                addProductToUserHistoryOnFirebase(dataSnapshotValue);
+                displayProductData(dataSnapshotValue);
             });
         }
     }
@@ -103,6 +96,7 @@ public class ProductInfoActivity extends AppCompatActivity {
     private void addProductToUserHistoryOnFirebase(Product product) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
+        assert user != null;
         databaseReference.child(user.getUid()).child("history").child(product.getBarcode()).setValue(product);
     }
 
@@ -135,18 +129,6 @@ public class ProductInfoActivity extends AppCompatActivity {
         return null;
     }
 
-    public Drawable getProductImg(String url) {
-        // loads image of a product from web
-        try {
-            GetImage getImage = new GetImage(this);
-            AsyncTask<String, Void, Drawable> response = getImage.execute(url);
-            return response.get();
-        } catch (Exception e) {
-            // loads default (product image not supported)
-            return ContextCompat.getDrawable(this, R.drawable.ic_image_not_supported);
-        }
-    }
-
     private void displayProductData(Product product) {
         txtVTitleAllergens.setVisibility(View.GONE);
         txtVAllergens.setVisibility(View.GONE);
@@ -156,8 +138,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         tblLyNutritionValues.setVisibility(View.GONE);
 
         // Displays product image and product name
-        Drawable productImg = getProductImg(product.getMainImageSrc());
-        imgVProductImg.setImageDrawable(productImg);
+        imgVProductImg.setImageDrawable(product.getImage());
         txtVProductName.setText(product.getName());
 
         if (User.getSettings().get(0)) { // Displays allergens if user wants to see it

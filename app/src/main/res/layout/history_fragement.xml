@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.265" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glBottom"
@@ -48,44 +48,49 @@
         android:fontFamily="@font/poppins_bold"
         android:text="@string/title_history"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextTextFirstName"
+        android:id="@+id/editTextTextProductName"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:inputType="text"
+        android:textColorHint="@color/lightText"
         app:boxBackgroundColor="@color/white"
         app:boxCornerRadiusBottomEnd="10dp"
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/primary1"
         app:endIconMode="clear_text"
+        app:endIconTint="@color/lightText"
         app:hintEnabled="false"
+        app:hintTextColor="@color/lightText"
         app:layout_constraintBottom_toTopOf="@+id/glTop"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toBottomOf="@+id/txtVHistory"
         app:startIconDrawable="@drawable/ic_search"
-        app:boxStrokeColor="@color/primary1"
-        app:hintTextColor="@color/primary1"
-        android:textColorHint="@color/lightText"
-        app:startIconTint="@color/lightText"
-        app:endIconTint="@color/lightText">
+        app:startIconTint="@color/lightText">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInFirstName"
+            android:id="@+id/txtInProductName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="@color/primary1"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/input_search_hint"
             android:inputType="text"
-            android:textSize="15sp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textColor="@color/primary1"
+            android:textSize="@dimen/_12sdp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +99,7 @@
         android:id="@+id/lvHistory"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:divider="@null"
         app:layout_constraintBottom_toTopOf="@+id/glBottom"
         app:layout_constraintEnd_toStartOf="@+id/glRight"

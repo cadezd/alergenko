@@ -55,7 +55,7 @@
         android:fontFamily="@font/poppins_bold"
         android:text="@string/title_scan"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
@@ -82,6 +82,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="@string/status_text"
         android:textColor="@color/white"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintEnd_toStartOf="@+id/glRight"
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glMiddle" />

@@ -5,7 +5,7 @@
     <string name="greeting1">Dobrodošli nazaj... !</string>
     <string name="greeting2">Prijavite se v svoj račun</string>
     <string name="txtv_forgot_password">Pozabljeno geslo?</string>
-    <string name="txtv_register"><font color="#1E263C">Nimate še računa?</font><font color="#EC6745"><b>Registracija</b></font></string>
+    <string name="txtv_register"><font color="#1E263C">Nimate še računa? </font><font color="#EC6745"><b>Registracija</b></font></string>
 
     <!--Register activity-->
     <string name="title_register">Registracija</string>
@@ -108,4 +108,8 @@
     <string name="notification_registration_success">Uspešna registracija.</string>
     <string name="notification_account_deleted">Uporabniški račun je bil uspešno izbrisan.</string>
     <string name="notification_data_updated">Podatki so bili uspešno posodobljeni.</string>
+
+    <!--Permission notifications-->
+    <string name="notification_permission_needed">Potrebno dovoljenje</string>
+    <string name="notification_permission_needed_expleined">Brez dostopa do kamere vam ne moremo omogčiti skeniranja črtnih kod.</string>
 </resources>

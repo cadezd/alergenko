@@ -1,6 +1,7 @@
 package com.example.alergenko.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.example.alergenko.R;
 import com.example.alergenko.entities.Product;
-import com.example.alergenko.entities.User;
 
 import java.util.ArrayList;
-
-// TODO : dodelja metode
 
 public class ListAdapter extends BaseAdapter implements Filterable {
 
@@ -42,12 +40,14 @@ public class ListAdapter extends BaseAdapter implements Filterable {
             convertView = LayoutInflater.from(context).inflate(R.layout.product_card, parent, false);
         }
 
+        //Log.i("bala", product.toString());
+
         // DECLARATION AND INICIALIZATION OF COMPONENTS
         ImageView imgVProductImg = convertView.findViewById(R.id.imgVProductImg);
         TextView txtVProductName = convertView.findViewById(R.id.txtVProductName);
 
         // setting values of components
-        imgVProductImg.setImageDrawable(product.getProductImg(context));
+        imgVProductImg.setImageDrawable(product.getImage());
         txtVProductName.setText(product.getName());
 
         return convertView;

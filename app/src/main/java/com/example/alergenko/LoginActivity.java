@@ -10,7 +10,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,9 +24,6 @@ import com.example.alergenko.entities.Product;
 import com.example.alergenko.entities.User;
 import com.example.alergenko.networking.NetworkConfig;
 import com.example.alergenko.notifications.Notification;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -124,23 +120,20 @@ public class LoginActivity extends AppCompatActivity {
         txtInEmail.setText(email);
         txtInPsswd.setText(password);
         if (email != null && password != null) {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        assert user != null;
-                        // collects user data and open MainActivity
-                        collectUserData(user);
-                        openMainActivity();
-                        finish();
-                    } else {
-                        // notifies user about error
-                        clearLoadingScreen();
-                        Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
-                        problemNotification.show();
-                        clearInputFields();
-                    }
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    assert user != null;
+                    // collects user data and open MainActivity
+                    collectUserData(user);
+                    openMainActivity();
+                    finish();
+                } else {
+                    // notifies user about error
+                    clearLoadingScreen();
+                    Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
+                    problemNotification.show();
+                    clearInputFields();
                 }
             });
         } else {
@@ -155,38 +148,35 @@ public class LoginActivity extends AppCompatActivity {
             clearInputFields();
             return;
         }
-        String email = txtInEmail.getText().toString().trim().toLowerCase();
-        String password = txtInPsswd.getText().toString();
+        String email = (!txtInEmail.getText().toString().trim().isEmpty()) ? txtInEmail.getText().toString().trim().toLowerCase() : " ";
+        String password = (!txtInPsswd.getText().toString().isEmpty()) ? txtInPsswd.getText().toString() : " ";
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    assert user != null;
-                    if (user.isEmailVerified()) {
-                        // remebers users email and password for automatic login
-                        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("email", email);
-                        editor.putString("password", password);
-                        editor.apply();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                assert user != null;
+                if (user.isEmailVerified()) {
+                    // remebers users email and password for automatic login
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("email", email);
+                    editor.putString("password", password);
+                    editor.apply();
 
-                        // collects user data and open MainActivity
-                        collectUserData(user);
-                        openMainActivity();
-                    } else {
-                        // notifies user that gmail address has not been verified and sends verification email
-                        Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_email_not_verified"), LoginActivity.this);
-                        problemNotification.show();
-                        clearInputFields();
-                    }
+                    // collects user data and open MainActivity
+                    collectUserData(user);
+                    openMainActivity();
                 } else {
-                    // notifies user about error
-                    Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
+                    // notifies user that gmail address has not been verified and sends verification email
+                    Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_email_not_verified"), LoginActivity.this);
                     problemNotification.show();
                     clearInputFields();
                 }
+            } else {
+                // notifies user about error
+                Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("exception_username_password"), LoginActivity.this);
+                problemNotification.show();
+                clearInputFields();
             }
         });
     }
