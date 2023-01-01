@@ -8,6 +8,8 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -259,7 +261,9 @@ public class RegisterActivity extends AppCompatActivity {
         txtInPsswdConfirm.getText().clear();
         txtInPsswd.requestFocus();
         textInputLayout.setError("Geslo ne zadostuje kriterijem (dolžina 8 znakov, vsebuje vsaj 1 veliko črko, 1 številko in 1 poseben znak)");
+        textInputLayout.setErrorIconDrawable(null);
         textInputLayout1.setError("Geslo ne zadostuje kriterijem (dolžina 8 znakov, vsebuje vsaj 1 veliko črko, 1 številko in 1 poseben znak)");
+        textInputLayout1.setErrorIconDrawable(null);
         return false;
     }
 
@@ -275,7 +279,9 @@ public class RegisterActivity extends AppCompatActivity {
         txtInPsswdConfirm.getText().clear();
         txtInPsswd.requestFocus();
         textInputLayout.setError("Gesli se je ujemata");
+        textInputLayout.setErrorIconDrawable(null);
         textInputLayout1.setError("Gesli se ne ujemata");
+        textInputLayout1.setErrorIconDrawable(null);
         return false;
     }
 
