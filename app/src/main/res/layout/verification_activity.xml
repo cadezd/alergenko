@@ -74,19 +74,6 @@
         app:layout_constraintStart_toStartOf="@+id/glLeft"
         app:layout_constraintTop_toTopOf="@+id/glTitle" />
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/btn_back_description"
-        android:paddingEnd="@dimen/_8sdp"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@+id/glLeft"
-        app:layout_constraintTop_toTopOf="@+id/glTitle"
-        app:srcCompat="@drawable/ic_back"
-        tools:ignore="TouchTargetSizeCheck" />
-
     <TextView
         android:id="@+id/txtVInstruction2"
         android:layout_width="0dp"

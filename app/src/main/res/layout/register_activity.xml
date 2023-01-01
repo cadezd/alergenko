@@ -152,45 +152,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/editTextPhoneNumber"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_6sdp"
-                android:ems="10"
-                android:inputType="phone"
-                android:textColorHint="@color/lightText"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxStrokeColor="@color/primary1"
-                app:counterMaxLength="8"
-                app:endIconMode="clear_text"
-                app:endIconTint="@color/lightText"
-                app:hintTextColor="@color/primary1"
-                app:prefixText="@string/county_code"
-                app:prefixTextColor="@color/primary1"
-                app:startIconDrawable="@drawable/ic_phone_grey"
-                app:startIconTint="@color/lightText">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txtInPhoneNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_medium"
-                    android:hint="@string/input_phone_hint"
-                    android:inputType="phone"
-                    android:maxLength="8"
-                    android:paddingTop="@dimen/_10sdp"
-                    android:paddingBottom="@dimen/_10sdp"
-                    android:textColor="@color/primary1"
-                    android:textSize="@dimen/_12sdp"
-                    tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/editTextEmailAddress"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"

@@ -30,7 +30,6 @@ public class VerificationActivity extends AppCompatActivity {
 
 
     // DECLARATION OF COMPONENTS
-    ImageButton btnBack;
     Button btnOpenLoginActivity;
     TextView txtVResend;
 
@@ -39,12 +38,10 @@ public class VerificationActivity extends AppCompatActivity {
         super.onStart();
 
         // INICIALIZATION OF COMPONENTS
-        btnBack = findViewById(R.id.btnBack);
         btnOpenLoginActivity = findViewById(R.id.btnSendEmail);
         txtVResend = findViewById(R.id.txtVResend);
 
         // CLICK LISTENERS
-        btnBack.setOnClickListener(view -> openRegisterActivity(null));
         btnOpenLoginActivity.setOnClickListener(view -> openLoginActivity(null));
         txtVResend.setOnClickListener(view -> sendVerificationEmail());
 
@@ -52,14 +49,6 @@ public class VerificationActivity extends AppCompatActivity {
     }
 
     // ADDITIONAL METHODS
-    private void openRegisterActivity(String exceptionMessage) {
-        User.clearFields();
-        Intent intent = new Intent(this, RegisterActivity.class);
-        intent.putExtra("exceptionMessage", exceptionMessage);
-        startActivity(intent);
-        finishAffinity();
-    }
-
     private void openLoginActivity(String message) {
         User.clearFields();
         Intent intent = new Intent(this, LoginActivity.class);

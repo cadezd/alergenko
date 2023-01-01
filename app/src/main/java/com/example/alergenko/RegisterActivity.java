@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
     EditText txtInFirstName;
     EditText txtInLastName;
     EditText txtInEmail;
-    EditText txtInPhoneNumber;
     EditText txtInPsswd;
     EditText txtInPsswdConfirm;
     Button btnRegister;
@@ -71,7 +70,6 @@ public class RegisterActivity extends AppCompatActivity {
         txtInFirstName = findViewById(R.id.txtInFirstName);
         txtInLastName = findViewById(R.id.txtInLastName);
         txtInEmail = findViewById(R.id.txtInEmail);
-        txtInPhoneNumber = findViewById(R.id.txtInPhoneNumber);
         txtInPsswd = findViewById(R.id.txtInPsswd);
         txtInPsswdConfirm = findViewById(R.id.txtInPsswdConfirm);
         btnRegister = findViewById(R.id.btnUpdate);
@@ -92,13 +90,13 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         // checking if entered data is valid
-        if (!isValidFirstName() || !isValidLastName() || !isValidPhoneNumber() || isPhoneNumberDuplicate() || !isValidEmail() || isEmailDuplicate() || !isPasswordStrong() || !isValidPassword())
+        if (!isValidFirstName() || !isValidLastName() || !isValidEmail() || !isPasswordStrong() || !isValidPassword())
             return;
 
         // collecting enterd data
         User.setFirstName(txtInFirstName.getText().toString().trim());
         User.setLastName(txtInLastName.getText().toString().trim());
-        User.setPhoneNumber("+386" + txtInPhoneNumber.getText().toString().trim());
+        User.setPhoneNumber("+38612345678");
         User.setEmail(txtInEmail.getText().toString().trim().toLowerCase());
 
         String password = txtInPsswd.getText().toString();
@@ -165,49 +163,6 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
-    protected boolean isValidPhoneNumber() {
-        TextInputLayout textInputLayout = findViewById(R.id.editTextPhoneNumber);
-        String regex = "\\+386[1-9][0-9]{7}";
-        String phoneNumber = "+386" + txtInPhoneNumber.getText().toString();
-        if (phoneNumber.matches(regex)) {
-            textInputLayout.setErrorEnabled(false);
-            return true;
-        }
-        txtInPhoneNumber.getText().clear();
-        txtInPhoneNumber.requestFocus();
-        textInputLayout.setError("Potrebno je vnesti vašo telefonsko številko");
-        return false;
-    }
-
-    protected boolean isPhoneNumberDuplicate() {
-        TextInputLayout textInputLayout = findViewById(R.id.editTextPhoneNumber);
-        final boolean[] isPhoneNumberDuplicate = {false};
-        FirebaseUser user = mAuth.getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
-        ref.orderByChild("phoneNumber").equalTo("+386" + txtInPhoneNumber.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // checks if phone number already exists in database
-                if (dataSnapshot.exists()) {
-                    isPhoneNumberDuplicate[0] = true;
-                    txtInPhoneNumber.getText().clear();
-                    txtInPhoneNumber.requestFocus();
-                    textInputLayout.setError("Račun s to telefonsko številko že obstaja");
-                } else {
-                    textInputLayout.setErrorEnabled(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { // handling errors
-                Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), RegisterActivity.this);
-                problemNotification.show();
-                isPhoneNumberDuplicate[0] = true;
-            }
-        });
-
-        return isPhoneNumberDuplicate[0];
-    }
-
     protected boolean isValidEmail() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
@@ -219,35 +174,6 @@ public class RegisterActivity extends AppCompatActivity {
         txtInEmail.requestFocus();
         textInputLayout.setError("Potrebno je vnesti vaš e-poštni naslov");
         return false;
-    }
-
-    protected boolean isEmailDuplicate() {
-        TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
-        final boolean[] isEmailDuplicate = {false};
-        FirebaseUser user = mAuth.getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
-        ref.orderByChild("email").equalTo(txtInEmail.getText().toString().trim().toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) { // checks if email already exists in database
-                if (dataSnapshot.exists()) {
-                    isEmailDuplicate[0] = true;
-                    txtInEmail.getText().clear();
-                    txtInEmail.requestFocus();
-                    textInputLayout.setError("Račun s tem e-poštnim naslovom že obstaja");
-                } else {
-                    textInputLayout.setErrorEnabled(false);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) { // handling errors
-                Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), RegisterActivity.this);
-                problemNotification.show();
-                isEmailDuplicate[0] = true;
-            }
-        });
-
-        return isEmailDuplicate[0];
     }
 
     protected boolean isPasswordStrong() {
