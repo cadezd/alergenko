@@ -15,7 +15,7 @@
     <!--Verification activity-->
     <string name="title_verification">Verifikacija</string>
     <string name="txtv_instruction_1">Preverjanje vašega e-poštnega naslova</string>
-    <string name="txtv_instruction_2">Na Vaš e-poštni naslov smo poslali povezavo s katero potrdite Vaš e-poštni naslov.</string>
+    <string name="txtv_instruction_2">Na Vaš e-poštni naslov smo poslali povezavo s katero potrdite Vaš e-poštni naslov (preverite tudi VSILJENO POŠTO / SPAM).</string>
 
     <string name="txtv_resend"><font color="#1E263C">Niste prejeli e-pošte? </font> <font color="#EC6745"><b>Ponovno pošlji</b></font></string>
 
@@ -24,7 +24,7 @@
     <string name="title_reset_password">Ponastavitev gesla</string>
     <string name="txtv_instruction_3">Ali ste pozabili geslo?</string>
     <string name="txtv_instruction_4">Potrebujemo vašo e-pošto, da vam pošljemo e-poštno sporočilo za ponastavitev gesla.</string>
-    <string name="notification_reset_password_email_send">Na vaš e-poštni naslov smo poslali sporočilo za ponastavitev gesla (preverite tudi VSILJENO POŠTO).</string>
+    <string name="notification_reset_password_email_send">Na vaš e-poštni naslov smo poslali sporočilo za ponastavitev gesla (preverite tudi VSILJENO POŠTO / SPAM).</string>
 
     <!--Product info activity-->
     <string name="title_product_info">Informacije o izdelku</string>
