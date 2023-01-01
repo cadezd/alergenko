@@ -65,7 +65,6 @@ public class VerificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("message", message);
         startActivity(intent);
-        finishAffinity();
     }
 
     private void sendVerificationEmail() {
