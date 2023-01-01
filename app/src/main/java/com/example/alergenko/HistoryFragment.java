@@ -41,7 +41,7 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         checkConnectivity();
         // set's the layout
-        View contentView = inflater.inflate(R.layout.history_fragement, container, false);
+        View contentView = inflater.inflate(R.layout.history_fragment, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
 
         adapter = new ListAdapter(getContext(), User.getHistory());

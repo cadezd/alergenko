@@ -37,6 +37,11 @@
     <!--Edit info activity-->
     <string name="title_edit_info">Podatki o računu</string>
 
+    <!--Shopping list fragment-->
+    <string name="title_shopping_list">Nakupovalni seznam</string>
+    <string name="btn_add_item">+</string>
+    <string name="hint_shopping_list">Dodajte izdelke...</string>
+
     <!--Settings fragment-->
     <string name="title_settings">Nastavitve</string>
     <string name="txtv_account_settings">Nastavitve računa</string>
@@ -54,6 +59,7 @@
 
     <!--Menu / nav bar strings-->
     <string name="nav_settings">Nastavitve</string>
+    <string name="nav_shopping_list">Seznam</string>
     <string name="nav_scan">Skeniranje</string>
     <string name="nav_history">Zgodovina</string>
 
@@ -112,4 +118,6 @@
     <!--Permission notifications-->
     <string name="notification_permission_needed">Potrebno dovoljenje</string>
     <string name="notification_permission_needed_expleined">Brez dostopa do kamere vam ne moremo omogčiti skeniranja črtnih kod.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

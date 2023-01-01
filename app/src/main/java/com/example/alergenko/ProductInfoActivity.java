@@ -32,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProductInfoActivity extends AppCompatActivity {
 
+    boolean addRows = true; // controls that table is displayed only once
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +78,12 @@ public class ProductInfoActivity extends AppCompatActivity {
 
         // GETTING AND DISPLAYING PRODUCT DATA
         String barcode = getIntent().getStringExtra("barcode");
-        if (fragmentToOpen == R.id.nav_history) {
+        if (fragmentToOpen == R.id.nav_history && addRows) {
             showLoadingScreen();    // searches for product in user history
             Product product = readDataFromHistory(barcode);
             clearLoadingScreen();
             displayProductData(product);
-        } else {    // searches for product in database
+        } else if (addRows) {    // searches for product in database
             DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("products");
             readDataFromDatabse(databaseReference.child(barcode), dataSnapshotValue -> {
                 clearLoadingScreen();
@@ -90,6 +92,12 @@ public class ProductInfoActivity extends AppCompatActivity {
                 displayProductData(dataSnapshotValue);
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addRows = false;
     }
 
     // ADDITIONAL METHODS
@@ -109,8 +117,11 @@ public class ProductInfoActivity extends AppCompatActivity {
                 // value of the DataSnapshot object, not the object itself
                 if (snapshot.getValue(Product.class) == null) // if it doesnt get the product it opeens ProductNotFoundActivty
                     openProductNotFoundActivty();
-                else
-                    listener.onSuccess(snapshot.getValue(Product.class)); // else it passes product data to display
+                else {
+                    Product product = snapshot.getValue(Product.class);
+                    product.fetchImageFromInternet();
+                    listener.onSuccess(product); // else it passes product data to display
+                }
             }
 
             @Override
@@ -189,7 +200,7 @@ public class ProductInfoActivity extends AppCompatActivity {
             txtVNutrient.setPadding(45, 3, 0, 3);
         }
         if (index == 0) {
-            txtVNutrient.setTextSize(16);
+            txtVNutrient.setTextSize(15);
             txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
         }
         txtVNutrient.setText(nutrient);
@@ -201,6 +212,14 @@ public class ProductInfoActivity extends AppCompatActivity {
         txtVQuantityUnit.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
         txtVQuantityUnit.setPadding(0, 3, 25, 3);
         txtVQuantityUnit.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_medium));
+        if (nutrient.equalsIgnoreCase("vitamini in minerali")) {
+            txtVNutrient.setTextSize(15);
+            txtVNutrient.setPadding(25, 40, 25, 3);
+            txtVNutrient.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
+            txtVQuantityUnit.setTextSize(15);
+            txtVQuantityUnit.setPadding(0, 40, 25, 3);
+            txtVQuantityUnit.setTypeface(ResourcesCompat.getFont(this, R.font.poppins_bold));
+        }
         txtVQuantityUnit.setText(quantity + " " + unit);
         tableRow.addView(txtVQuantityUnit);
 
@@ -227,10 +246,12 @@ public class ProductInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(ProductInfoActivity.this, MainActivity.class);
         intent.putExtra("fragmentToOpen", fragmentToOpen);
         startActivity(intent);
+        finishAffinity();
     }
 
     private void openProductNotFoundActivty() {
         Intent intent = new Intent(ProductInfoActivity.this, ProductNotFoundActivty.class);
         startActivity(intent);
+        finishAffinity();
     }
 }

@@ -197,7 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { // handling errors
-                Notification problemNotification = new Notification(getStringResourceByName("excpetion"), error.getMessage(), RegisterActivity.this);
+                Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), RegisterActivity.this);
                 problemNotification.show();
                 isPhoneNumberDuplicate[0] = true;
             }
@@ -238,7 +238,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) { // handling errors
-                Notification problemNotification = new Notification(getStringResourceByName("excpetion"), error.getMessage(), RegisterActivity.this);
+                Notification problemNotification = new Notification(getStringResourceByName("exception"), error.getMessage(), RegisterActivity.this);
                 problemNotification.show();
                 isEmailDuplicate[0] = true;
             }

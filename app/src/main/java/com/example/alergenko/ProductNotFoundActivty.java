@@ -33,6 +33,7 @@ public class ProductNotFoundActivty extends AppCompatActivity {
         Intent intent = new Intent(ProductNotFoundActivty.this, MainActivity.class);
         intent.putExtra("fragmentToOpen", fragmentToOpen);
         startActivity(intent);
+        finishAffinity();
     }
 
 }

@@ -57,6 +57,7 @@ public class VerificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RegisterActivity.class);
         intent.putExtra("exceptionMessage", exceptionMessage);
         startActivity(intent);
+        finishAffinity();
     }
 
     private void openLoginActivity(String message) {
@@ -64,6 +65,7 @@ public class VerificationActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("message", message);
         startActivity(intent);
+        finishAffinity();
     }
 
     private void sendVerificationEmail() {

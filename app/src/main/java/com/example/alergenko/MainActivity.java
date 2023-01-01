@@ -26,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
     }
 
+    // DECLARATION OF COMPONENTS
+    BottomNavigationView navNavigation;
+
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onStart() {
         super.onStart();
 
-        // DECLARATION AND INICIALIZATION OF COMPONENTS
-        BottomNavigationView navNavigation = findViewById(R.id.navNavigation);
+        // INICIALIZATION OF COMPONENTS
+        navNavigation = findViewById(R.id.navNavigation);
 
         // EVENT LISTENERS
         navNavigation.setOnNavigationItemSelectedListener(navListener);

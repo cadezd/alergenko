@@ -1,12 +1,8 @@
 package com.example.alergenko;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -23,8 +19,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.alergenko.networking.NetworkConfig;
@@ -35,7 +29,6 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CompoundBarcodeView;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ScanFragment extends Fragment {
 
@@ -59,7 +52,7 @@ public class ScanFragment extends Fragment {
             return null;
         }
 
-        view = inflater.inflate(R.layout.scan_fragement, container, false);
+        view = inflater.inflate(R.layout.scan_fragment, container, false);
 
         barcodeView = view.findViewById(R.id.barcode_scanner);
         barcodeView.setStatusText("");

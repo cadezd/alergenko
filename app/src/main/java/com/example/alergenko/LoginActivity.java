@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
         automaticLogin();
     }
 
-
     @SuppressLint("SetTextI18n")
     @Override
     protected void onStart() {
@@ -198,8 +197,12 @@ public class LoginActivity extends AppCompatActivity {
                     User.setSettings(settings);
 
                     ArrayList<Product> history = new ArrayList<>();
-                    for (DataSnapshot dataSnapshotHistory : snapshot.child("history").getChildren())
-                        history.add(dataSnapshotHistory.getValue(Product.class));
+                    Product product;
+                    for (DataSnapshot dataSnapshotHistory : snapshot.child("history").getChildren()) {
+                        product = dataSnapshotHistory.getValue(Product.class);
+                        product.fetchImageFromInternet();
+                        history.add(product);
+                    }
                     User.setHistory(history);
                 }
             }
@@ -271,19 +274,16 @@ public class LoginActivity extends AppCompatActivity {
     private void openResetPasswordActivty() {
         Intent intent = new Intent(this, ResetPasswordActivty.class);
         startActivity(intent);
-        finish();
     }
 
     private void openRegisterActivity() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
-        finish();
     }
 
     private void openMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        finish();
     }
 
 }

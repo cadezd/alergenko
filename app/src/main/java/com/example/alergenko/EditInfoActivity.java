@@ -170,6 +170,7 @@ public class EditInfoActivity extends AppCompatActivity {
         intent.putExtra("fragmentToOpen", R.id.nav_settings);
         intent.putExtra("message", message);
         startActivity(intent);
+        finishAffinity();
     }
 
     private String getStringResourceByName(String aString) {

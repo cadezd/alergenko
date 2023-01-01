@@ -43,7 +43,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // set's the layout
-        View contentView = inflater.inflate(R.layout.settings_fragement, container, false);
+        View contentView = inflater.inflate(R.layout.settings_fragment, container, false);
 
         // INICIALIZATION OF COMPONENTS
         btnChangeData = contentView.findViewById(R.id.btnChangeData);
@@ -106,18 +106,20 @@ public class SettingsFragment extends Fragment {
     private void deleteAccount() {
         // delets user from Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
-        user.delete();
 
         // deletes user extra data from Firebase
         DatabaseReference databaseReference = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users");
         databaseReference.child(user.getUid()).removeValue();
+
         // clear fields for automatic login
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("email", null);
         editor.putString("password", null);
         editor.apply();
+
+        user.delete();
+
         openLoginActivity(getStringResourceByName("notification_account_deleted"));
     }
 
@@ -155,6 +157,7 @@ public class SettingsFragment extends Fragment {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.putExtra("message", message);
         startActivity(intent);
+        getActivity().finishAffinity();
     }
 
     private String getStringResourceByName(String aString) {

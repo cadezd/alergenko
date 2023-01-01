@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.alergenko.R;
 import com.example.alergenko.networking.GetImage;
+import com.google.firebase.database.Exclude;
 
 public class Product {
     private String itemId;
@@ -19,6 +20,8 @@ public class Product {
     private String mainImageSrc;
     private String url;
     private String allergens;
+
+    @Exclude
     private Drawable image;
 
     public Product() {
@@ -36,7 +39,6 @@ public class Product {
         this.nutritionValues = nutritionValues;
         this.url = url;
         this.image = Resources.getSystem().getDrawable(R.drawable.ic_image_not_supported);
-        this.fetchImageFromInternet();
     }
 
     public String getItemId() {
@@ -93,7 +95,6 @@ public class Product {
 
     public void setMainImageSrc(String mainImageSrc) {
         this.mainImageSrc = mainImageSrc;
-        this.fetchImageFromInternet();
     }
 
     public String getUrl() {
@@ -113,6 +114,7 @@ public class Product {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
+    @Exclude
     public void fetchImageFromInternet() {
         // loads image of a product from web
         try {
@@ -128,11 +130,18 @@ public class Product {
         }
     }
 
+    @Exclude
     public Drawable getImage(){
         return this.image;
     }
 
+    @Exclude
+    public void setImage(Drawable drawable){
+        this.image = drawable;
+    }
+
     @Override
+    @Exclude
     public String toString() {
         return "Product{" +
                 "itemId='" + itemId + '\'' +
