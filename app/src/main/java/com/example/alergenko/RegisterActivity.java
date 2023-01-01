@@ -8,8 +8,7 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -108,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
         // registering user
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && task.isComplete()) {
                         // Sign in success, update UI with the signed-in user's information
                         UserHelper userHelper = new UserHelper(
                                 User.getFirstName(),
@@ -127,14 +126,14 @@ public class RegisterActivity extends AppCompatActivity {
                         FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference("users")
                                 .child(Objects.requireNonNull(user).getUid())
                                 .setValue(userHelper).addOnCompleteListener(task1 -> {
-                                    if (task1.isSuccessful()) {
+                                    if (task1.isSuccessful() && task1.isComplete()) {
                                         openVerificationActivity();
-                                    } else {
+                                    } else if (task1.isComplete()) {
                                         Notification problemNotification = new Notification(getStringResourceByName("exception"), Objects.requireNonNull(task1.getException()).getMessage(), RegisterActivity.this);
                                         problemNotification.show();
                                     }
                                 });
-                    } else {
+                    } else if (task.isComplete()){
                         // If sign in fails, display a message to the user.
                         Notification problemNotification = new Notification(getStringResourceByName("exception"), Objects.requireNonNull(task.getException()).getMessage(), RegisterActivity.this);
                         problemNotification.show();
@@ -183,6 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected boolean isPhoneNumberDuplicate() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextPhoneNumber);
         final boolean[] isPhoneNumberDuplicate = {false};
+        FirebaseUser user = mAuth.getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
         ref.orderByChild("phoneNumber").equalTo("+386" + txtInPhoneNumber.getText().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -224,6 +224,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected boolean isEmailDuplicate() {
         TextInputLayout textInputLayout = findViewById(R.id.editTextEmailAddress);
         final boolean[] isEmailDuplicate = {false};
+        FirebaseUser user = mAuth.getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance(NetworkConfig.URL_DATABASE).getReference().child("users");
         ref.orderByChild("email").equalTo(txtInEmail.getText().toString().trim().toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
