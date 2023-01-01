@@ -15,14 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.alergenko.adapters.ListAdapter;
-import com.example.alergenko.adapters.PrepareAdapter;
 import com.example.alergenko.entities.Product;
 import com.example.alergenko.entities.User;
 import com.example.alergenko.notifications.Notification;
@@ -45,11 +43,8 @@ public class HistoryFragment extends Fragment {
         // set's the layout
         View contentView = inflater.inflate(R.layout.history_fragment, container, false);
         ListView listView = contentView.findViewById(R.id.lvHistory);
-        ProgressBar progressBar = contentView.findViewById(R.id.progressBar);
 
-        // prepared and sets list adapter in background
-        PrepareAdapter prepareAdapter = new PrepareAdapter(getContext(), listView, User.getHistory(), progressBar);
-        prepareAdapter.execute();
+        adapter = new ListAdapter(getContext(), User.getHistory());
         listView.setAdapter(adapter);
         // opens ProductInfoActivity when user clicks on one element in the list view if it has connection
         listView.setClickable(true);
