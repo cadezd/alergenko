@@ -7,6 +7,7 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,8 +35,10 @@ public class HistoryFragment extends Fragment {
     // for checking internet connection
     boolean isConnected;
 
+    ListView listView;
     ListAdapter adapter;
     EditText txtInProductName;
+    ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -42,13 +46,12 @@ public class HistoryFragment extends Fragment {
         checkConnectivity();
         // set's the layout
         View contentView = inflater.inflate(R.layout.history_fragment, container, false);
-        ListView listView = contentView.findViewById(R.id.lvHistory);
+        listView = contentView.findViewById(R.id.lvHistory);
 
-        adapter = new ListAdapter(getContext(), User.getHistory());
-        listView.setAdapter(adapter);
-        // opens ProductInfoActivity when user clicks on one element in the list view if it has connection
-        listView.setClickable(true);
-        listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(adapter.getProducts(), position));
+        // displays progress bar while list adapter loads its content
+        progressBar = contentView.findViewById(R.id.progressBar);
+        PrepareAdapter prepareAdapter = new PrepareAdapter();
+        prepareAdapter.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         txtInProductName = contentView.findViewById(R.id.txtInProductName);
         txtInProductName.addTextChangedListener(new TextWatcher() { // filters products when user searches for specific product/s
@@ -121,6 +124,27 @@ public class HistoryFragment extends Fragment {
         } else {
             Notification problemNotification = new Notification(getStringResourceByName("exception"), getStringResourceByName("no_internet_connection"), getContext());
             problemNotification.show();
+        }
+    }
+
+    private class PrepareAdapter extends AsyncTask<Void, Void, ListAdapter> {
+        @Override
+        public void onPreExecute() {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public ListAdapter doInBackground(Void... params) {
+            adapter = new ListAdapter(getContext(), User.getHistory());
+            listView.setAdapter(adapter);
+            // opens ProductInfoActivity when user clicks on one element in the list view if it has connection
+            listView.setClickable(true);
+            listView.setOnItemClickListener((adapterView, view, position, l) -> openProductInfoActivity(adapter.getProducts(), position));
+            return adapter;
+        }
+
+        public void onPostExecute(ListAdapter result) {
+            progressBar.setVisibility(View.GONE);
         }
     }
 }
